@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration Details</title>
+    <style>
+        h1{
+         color:black;
+        font-size:40px;
+        text-align:center;
+        }
+        h4{
+        color:black;
+        font-size:30px;
+        text-align:center;
+        }
+        table{
+        margin-left:650px;
+        border:2px solid white;
+        background-color:beige;
+        }
+        td{
+        padding:10px;
+        border:2px solid white
+        }
+        #button{
+        margin-left:740px;
+        }
+        #button{
+        margin-left:740px;
+        }
+    </style>
+        <script>
+        function show()
+            {
+            var fname = document.getElementById ("fname").value;
+            var lname = document.getElementById ("lname").value;
+            var age = document.getElementById ("age").value;
+            var phoneNo = document.getElementById ("phoneNumber").value;
+            var gender = document.getElementById ("gender").value;
+            var emailId = document.getElementById ("colEmailId").value;
+            var guid = document.getElementById ("guid").value;
+            var password = document.getElementById ("paswrd").value;
+            confirm("You have entered: " + "\n First name: " + fname + " " +"\n Last name: " + lname + "\n Age: " + age + "\n Contact Number: " + phoneNumber + "\n Gender: " + gender + "\n College email Id: " + colEmailId + "\n GUID: " + guid + "\n Password: " + paswrd + "\n\n Do you want to confirm these details ?");
+             }
+             function changeColor (val)
+             {
+             if((val.value=="")||(val.value==null))
+             {
+             val.style.background="pink";
+             }
+             else
+             {
+             val.style.background="#FFFFFF;
+             }
+             }
+
+
+        </script>
+
+</head>
+<body>
+<h1>User Registration Details<hr/></h1>
+<h4>Please fill the following details and get registered!</h4>
+<br/>
+<table>
+    <tr>
+        <td>First name:</td>
+        <td> <input type="text" name="name1" id="fname"onblur="changeColor(this)"/> </td>
+    </tr>
+     <tr>
+        <td>Last name:</td>
+        <td> <input type="text" name="name1" id="lname"onblur="changeColor(this)"/> </td>
+    </tr>
+     <tr>
+        <td>Age:</td>
+        <td> <input type="text" name="name1" id="age"onblur="changeColor(this)"/> </td>
+    </tr>
+    <tr>
+        <td>Contact Number:</td>
+        <td> <input type="text" name="name1" id="phoneNumber"onblur="changeColor(this)"/> </td>
+    </tr>
+     <tr>
+        <td>Gender:</td>
+        <td> <input type="text" name="name1" id="gender"onblur="changeColor(this)"/> </td>
+    </tr>
+     <tr>
+        <td>College email Id:</td>
+        <td> <input type="email" name="name1" id="colEmailId"onblur="changeColor(this)"/> </td>
+    </tr>
+     <tr>
+        <td>Password:</td>
+        <td> <input type="text" name="name1" id="paswrd"onblur="changeColor(this)"/> </td>
+    </tr>
+    <tr>
+        <td>GUID:</td>
+        <td> <input type="text" name="name1" id="guid"onblur="changeColor(this)"/> </td>
+    </tr>
+
+</table>
+<br/><input id="button" type="button" value="Register Me" onclick="show()">
+</body>
+</html>

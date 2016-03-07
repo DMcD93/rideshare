@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>Login Page</title>
+<head>
+    <style>
+       h1{
+         color:black;
+        font-size:40px;
+        text-align:center;
+        }
+         table{
+        margin-left:850px;
+        border:2px solid white;
+        background-color:beige;
+        }
+        td{
+        padding:10px;
+        border:2px solid white
+        }
+        #button{
+        margin-left:1000px;
+        border:2px solid white;
+        background-color:beige;
+        }
+
+    </style>
+    <title>Login Page</title>
     </head>
 
-    <body>
-        This is the login page. Has user login fields<br/>
-	
+    <body bgcolour=""#FFEBCD>
+    <h1>Login<hr/></h1>
+        <form action="login.html"/>
+            <table>
+                 <tr>
+                    <td>Username:</td>
+                    <td> <input type="email" name="name1" id="username" placeholder="Enter your email id"/> </td>
+                 </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td> <input type="password" name="accPaswrd" placeholder="Enter yor password"></td>
+
+            </table>
+                    <br/><td><input id="button" type="button" value="Login" onclick="show()" ></td><br/>
     </body>
 
 </html>
