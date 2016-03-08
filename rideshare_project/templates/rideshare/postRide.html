@@ -2,87 +2,128 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Post Ride</title>
-</head>
-<style>
-        h1{
-         color:black;
-        font-size:40px;
-        text-align:center;
-        }
-        h4{
-        color:black;
-        font-size:30px;
-        text-align:center;
-        }
-        table{
-        margin-left:800px;
-        border:2px solid white;
-        background-color:beige;
-        }
-        td{
-        padding:10px;
-        border:2px solid white
-        }
-    </style>
+    <title>Vehicle Details</title>
+    <link rel="stylesheet" href="../../static/CSS/style.css" />
 </head>
 <body>
+<object type="text/html" data="navBar.html" width="100%">
+</object>
+<div class="jumbotron">
+<form class="form-horizontal">
+    <fieldset>
+    <legend> Vehicle Details</legend>
+    <div class="form-group">
+      <label for="inputFname" class="col-lg-2 control-label">First Name:</label>
+      <div class="col-lg-3">
+        <input type="text" class="form-control" id="inputFname" placeholder="Your Name">
+      </div>
+    </div>
+      <div class="form-group">
+        <label for="inputSname" class="col-lg-2 control-label">Surname Name:</label>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" id="inputSname" placeholder="Surname">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-lg-2 control-label">University Email:</label>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" id="email" placeholder="University email address">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="age" class="col-lg-2 control-label">Age:</label>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" id="age" placeholder="Age">
+        </div>
+      </div>
+    <div class="form-group">
+      <label for="inputPassword" class="col-lg-2 control-label">Password:</label>
+      <div class="col-lg-3">
+        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+      </div>
+    </div>
+      <div class="form-group">
+        <label for="phone" class="col-lg-2 control-label">Phone Number:</label>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" id="phone" placeholder="Password">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="vehicle" class="col-lg-2 control-label">Vehicle:</label>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" id="vehicle" placeholder="Vehicle Name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="seat" class="col-lg-2 control-label">Seats:</label>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" id="seat" placeholder="No. of seats available">
+        </div>
+      </div>
+        <div class="form-group">
+          <label for="images" class="col-lg-2 control-label">Photos:</label>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" id="images" placeholder="Images">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="travlFrm" class="col-lg-2 control-label">Travelling From:</label>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" id="travlFrm" placeholder="Place">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="travlTo" class="col-lg-2 control-label">Travelling From:</label>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" id="travlTo" placeholder="Place">
+        </div>
+      </div>
+        <div class="form-group">
+        <label for="travlTo" class="col-lg-2 control-label">Days of Travel:</label>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Mon
+          </label>
+            <label>
+              <input type="checkbox"> Tue
+            </label>
+            <label>
+              <input type="checkbox"> Wed
+            </label>
+            <label>
+              <input type="checkbox"> Thu
+            </label>
+            <label>
+              <input type="checkbox"> Fri
+            </label>
+            <label>
+              <input type="checkbox"> Sat
+            </label>
+            <label>
+              <input type="checkbox"> Sun
+            </label>
+        </div>
+            </div>
+      <div class="form-group">
+          <label for="startTime" class="col-lg-2 control-label">Start Time:</label>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" id="startTime" placeholder="Time">
+        </div>
+      </div>
+        <div class="form-group">
+          <label for="returnTime" class="col-lg-2 control-label">Return Time:</label>
+        <div class="col-lg-3">
+            <input type="text" class="form-control" id="returnTime" placeholder="Time">
+        </div>
+      </div>
+        <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </div>
 
-<h1>Driver Vehicle Details<hr/></h1>
-<h4>Please fill your vehicle details.</h4>
-<br/>
-<table>
-    <tr>
-        <td>First name:</td>
-        <td> <input type="text" name="name1" id="fname"onblur="changeColor(this)"/> </td>
-    </tr>
-     <tr>
-        <td>Last name:</td>
-        <td> <input type="text" name="name1" id="lname"onblur="changeColor(this)"/> </td>
-    </tr>
-    <tr>
-        <td>College email Id:</td>
-        <td> <input type="email" name="name1" id="colEmailId"onblur="changeColor(this)"/> </td>
-    </tr>
-     <tr>
-        <td>Age:</td>
-        <td> <input type="text" name="name1" id="age"onblur="changeColor(this)"/> </td>
-    </tr>
-    <tr>
-        <td>Contact Number:</td>
-        <td> <input type="text" name="name1" id="phoneNumber"onblur="changeColor(this)"/> </td>
-    </tr>
-     <tr>
-        <td>Gender:</td>
-        <td> <input type="text" name="name1" id="gender"onblur="changeColor(this)"/> </td>
-    </tr>
-    <tr>
-        <td>Vehicle:</td>
-        <td> <input type="text" name="name1" id="vehicleName"onblur="changeColor(this)"/> </td>
-    </tr>
-    <tr>
-        <td>Travelling From:</td>
-        <td> <input type="text" name="name1" id="trvlFrm"onblur="changeColor(this)"/> </td>
-    </tr>
-    <tr>
-        <td>Travelling To:</td>
-        <td> <input type="text" name="name1" id="trvlTo"onblur="changeColor(this)"/> </td>
-    </tr>
-    <tr>
-        <td>Seats:</td>
-        <td> <input type="text" name="name1" id="noOfSeats"onblur="changeColor(this)"/> </td>
-    </tr>
-    <tr>
-        <td>Vehicle Photos:</td>
-        <td> <input type="text" name="name1" id="photos"onblur="changeColor(this)"/> </td>
-    </tr><tr>
-        <td>Start Time:</td>
-        <td> <input type="text" name="name1" id="startTime"onblur="changeColor(this)"/> </td>
-    </tr>
-    <tr>
-        <td>Return Time:</td>
-        <td> <input type="text" name="name1" id="returnTime"onblur="changeColor(this)"/> </td>
-    </tr>
-    </table>
+      </fieldset>
+  </form>
+    </div>
 </body>
 </html>

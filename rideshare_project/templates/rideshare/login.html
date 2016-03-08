@@ -1,53 +1,38 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <style>
-       h1{
-         color:black;
-        font-size:40px;
-        text-align:center;
-        }
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../../static/CSS/style.css" />
+</head>
+<body>
+<object type="text/html" data="navBar.html" width="100%">
+</object>
+<div class="jumbotron">
+<form class="form-horizontal">
+  <fieldset>
+    <legend>Login</legend>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Username</label>
+      <div class="col-lg-3">
+        <input type="text" class="form-control" id="inputEmail" placeholder="University Email Id">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+      <div class="col-lg-3">
+        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
 
-         table{
-        margin-left:850px;
-        border:2px solid white;
-        background-color:beige;
-        }
-        td{
-        padding:10px;
-        border:2px solid white
-        }
-        #button{
-        margin-left:1000px;
-        border:2px solid white;
-        background-color:beige;
-        }
-        h6{
-        margin-left:100px
-        font-size:12px
-
-
-    </style>
-    <title>Login Page</title>
-    </head>
-
-    <body bgcolour=""#FFEBCD>
-    <h1>Login<hr/></h1>
-        <form action="login.html"/>
-            <table>
-                 <tr>
-                    <td>Username:</td>
-                    <td> <input type="email" name="name1" id="username" placeholder="Enter your email id"/> </td>
-                 </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td> <input type="password" name="accPaswrd" placeholder="Enter yor password"></td>
-                    <h6><a href="/password_reset" class="label-link">Forgot password?</a></h6>
-                </tr>
-
-            </table>
-                    <br/><td><input id="button" type="button" value="Login" onclick="show()" ></td><br/>
-    </body>
-
+        </div>
+      </div>
+      <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <button type="reset" class="btn btn-default">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+</div>
+</body>
 </html>
