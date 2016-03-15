@@ -1,22 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-
-class User(models.Model):
+class Users_Reg(models.Model):
     """
     creating database for all users i.e. driver passenger etc
     email = '2226353k@student.gla.ac.uk' required
     user_type = 1 or 2 (1 = driver, 2 = passenger)
     """
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.EmailField(unique=True)
+ #   first_name = models.CharField(max_length=30)
+  #  last_name = models.CharField(max_length=30)
+   # email = models.EmailField(unique=True)
+
+    users = models.OneToOneField(User)
+
     phone = models.BigIntegerField()
     age = models.IntegerField(null=True)
     identity_number = models.CharField(max_length=30)
-    user_type = models.SmallIntegerField()
-
+   # user_type = models.SmallIntegerField()
+    
     class Meta:
-        db_table = "user"
+        db_table = "users"
 
 
 class Vehicle(models.Model):
