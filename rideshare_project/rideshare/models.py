@@ -45,7 +45,7 @@ class Journey(models.Model):
     travelling_date = models.DateField()
     travelling_time = models.TimeField()
     is_return = models.BooleanField(default=False)
-    user = models.ManyToManyField(User)
+    #user = models.ManyToManyField(User)
 
     class Meta:
         db_table = "journey"
