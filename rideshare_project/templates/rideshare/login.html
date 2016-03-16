@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% extends 'rideshare\base.html' %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +7,7 @@
     <link rel="stylesheet" href="../../static/CSS/style.css" />
 </head>
 <body>
-
+{% block body_block %}
 <div class="jumbotron">
 <form class="form-horizontal">
   <fieldset>
@@ -33,5 +34,6 @@
   </fieldset>
 </form>
 </div>
+{% endblock %}
 </body>
 </html>

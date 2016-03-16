@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% extends 'rideshare\base.html' %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,12 +7,14 @@
 	<link rel="stylesheet" href="../../static/CSS/style.css" />
 </head>
 <body>
+{% block body_block %}
 	<h1>Search for a Ride</h1>
 	
 	<!--- <form method="get" action="/results/" class="navbar-form pull-right">
 		<input type="text" id="searchBox" class="input-medium search-query" name="timeDB" placeholder="Search">
 		<input type="submit" class="btn" value="TimeSearch" >
 	</form> --->
+	
 	
 	{% if journeys %}
 		<ul>
@@ -27,5 +30,6 @@
     {% else %}
         <strong>There are no journeys currently.</strong>
     {% endif %}
+{% endblock %}
 </body>
 </html>
