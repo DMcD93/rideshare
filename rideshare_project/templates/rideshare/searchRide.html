@@ -17,16 +17,25 @@
 	
 	
 	{% if journeys %}
-		<ul>
+		<table>
+			<tr>
+				<th>Departure: </th>
+				<th>Destination: </th>
+				<th>Date: </th>
+				<th>Departure Time: </th>
+				<th>Return Journey?: </th>
+			</tr>
 			{% for journey in journeys %}
-				Departure: {{ journey.departure }}</br>
-				Destination: {{ journey.destination }}</br>
-				Date: {{ journey.travelling_date }}</br>
-				Departure Time: {{ journey.travelling_time }}</br>
-				Return Journey?: {{ journey.is_return }}</br>
-				</br>
+			<tr>
+					<td>{{ journey.departure }}</td>
+					<td>{{ journey.destination }}</td>
+					<td>{{ journey.travelling_date }}</td>
+					<td>{{ journey.travelling_time }}</td>
+					<td>{{ journey.is_return }}</td>
+					</br>
+			</tr>
 			{% endfor %}
-		</ul>
+		</table>
     {% else %}
         <strong>There are no journeys currently.</strong>
     {% endif %}
