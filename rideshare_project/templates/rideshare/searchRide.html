@@ -3,8 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Search Ride</title>
+	<link rel="stylesheet" href="../../static/CSS/style.css" />
 </head>
 <body>
-
+	<h1>Search for a Ride</h1>
+	
+	<!--- <form method="get" action="/results/" class="navbar-form pull-right">
+		<input type="text" id="searchBox" class="input-medium search-query" name="timeDB" placeholder="Search">
+		<input type="submit" class="btn" value="TimeSearch" >
+	</form> --->
+	
+	{% if journeys %}
+		<ul>
+			{% for journey in journeys %}
+				Departure: {{ journey.departure }}</br>
+				Destination: {{ journey.destination }}</br>
+				Date: {{ journey.travelling_date }}</br>
+				Departure Time: {{ journey.travelling_time }}</br>
+				Return Journey?: {{ journey.is_return }}</br>
+				</br>
+			{% endfor %}
+		</ul>
+    {% else %}
+        <strong>There are no journeys currently.</strong>
+    {% endif %}
 </body>
 </html>

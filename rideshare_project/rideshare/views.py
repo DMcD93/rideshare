@@ -4,6 +4,7 @@ from django.shortcuts import render
 from rideshare.forms import UserForm, UserRegForm
 #from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from rideshare.models import Journey
 
 def main(request):
 	return render(request, 'rideshare/main.html')	
@@ -55,3 +56,9 @@ def register(request):
 
 def post_ride(request):
 	return render(request, 'rideshare/login.html')	
+	
+def search_ride(request):
+    journey_list = Journey.objects.order_by('-travelling_date', 'travelling_time')
+    context_dict = {'journeys': journey_list}
+
+    return render(request, 'rideshare/searchRide.html', context_dict)	

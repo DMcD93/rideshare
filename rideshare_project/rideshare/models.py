@@ -42,8 +42,8 @@ class Journey(models.Model):
     """
     departure = models.CharField(max_length=30)
     destination = models.CharField(max_length=30)
-    travelling_date = models.DateField()
-    travelling_time = models.TimeField()
+    travelling_date = models.DateField(null = True)
+    travelling_time = models.TimeField(null = True)
     is_return = models.BooleanField(default=False)
     #user = models.ManyToManyField(User)
 

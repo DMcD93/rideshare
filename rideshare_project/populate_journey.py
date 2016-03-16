@@ -27,11 +27,11 @@ def populate():
         is_return=False)
 
     # Print out what we have added to the user.
-    for j in Journey.objects.all:
-        print "- {0} - {1}".format(str(j))
+    #for j in Journey.objects.all:
+    #    print "- {0} - {1}".format(str(j))
 
 def add_journey(departure, destination, travelling_date, travelling_time, is_return):
-    j = Journey.objects.get_or_create()[0]
+    j = Journey.objects.create()
     j.departure=departure
     j.destination=destination
     j.travelling_date=travelling_date
