@@ -1,5 +1,6 @@
+<script LANGUAGE="JavaScript">
 var options = {
   valueNames: [ 'departure', 'destination', 'date', 'time', 'return' ]
 };
 
-var userList = new List('journey', options);
+var userList = new List('journey', options);</script>

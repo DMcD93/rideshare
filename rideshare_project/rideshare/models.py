@@ -11,13 +11,16 @@ class Users_Reg(models.Model):
   #  last_name = models.CharField(max_length=30)
    # email = models.EmailField(unique=True)
 
-    users = models.OneToOneField(User)
+    user = models.OneToOneField(User)
 
     phone = models.BigIntegerField()
     age = models.IntegerField(null=True)
     identity_number = models.CharField(max_length=30)
-   # user_type = models.SmallIntegerField()
-    
+		
+    # Override the __unicode__() method to return out something meaningful!
+    def __unicode__(self):
+        return self.user.username
+		
     class Meta:
         db_table = "users"
 

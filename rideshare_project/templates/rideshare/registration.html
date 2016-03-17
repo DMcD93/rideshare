@@ -1,74 +1,33 @@
 <!DOCTYPE html>
 {% extends 'rideshare/base.html' %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>User Registration Details</title>
-    <link rel="stylesheet" href="../../static/CSS/style.css" />
-</head>
+<html>
+    <head>
+        <title>User Registration Details</title>
+		<link rel="stylesheet" href="../../static/CSS/style.css" />
+    </head>
 
-<body>
-{% block body_block %}
-	{% if registered %}
+    <body>
+        <h1>Register with Rango</h1>
+		{% block body_block %}
+			{% if registered %}
+				Rideshare says: <strong>thank you for registering!</strong>
+				<a href="/rideshare/">Return to the homepage.</a><br />
+			{% else %}
+			<form id="user_form" method="post" action="/rideshare/registration/"
+					enctype="multipart/form-data">
 
-	{% else %}
-	<div class="jumbotron">
-		<form class="form-horizontal">
-		<form id="user_form" method="post" action="/rideshare/registration/" enctype="multipart/form-data">
+				{% csrf_token %}
 
-			{% csrf_token %}
-			{{ user_form.as_p }}
-				{{ profile_reg.as_p }}
-	<!---		<fieldset>
-			   <legend>User Registration Details</legend>
-		<div class="form-group">
-			  <label for="inputFname" class="col-lg-2 control-label">First Name</label>
-			  <div class="col-lg-3">
-					<input type="text" class="form-control" id="inputFname" placeholder="Your Name">
-			  </div>
-			</div>
-			
-		<div class="form-group">
-			<label for="inputSname" class="col-lg-2 control-label">Surname Name</label>
-				<div class="col-lg-3">
-					<input type="text" class="form-control" id="inputSname" placeholder="Surname">
-				</div>
-		</div>
-			<div class="form-group">
-			<label for="email" class="col-lg-2 control-label">University Email</label>
-				<div class="col-lg-3">
-					<input type="text" class="form-control" id="email" placeholder="University email address">
-				</div>
-			</div>
-			<div class="form-group">
-			 <label for="age" class="col-lg-2 control-label">Age</label>
-				<div class="col-lg-3">
-						<input type="text" class="form-control" id="age" placeholder="Age">
-				</div>
-			</div>
-		<div class="form-group">
-				<label for="input" class="col-lg-2 control-label">Username</label>
-				<div class="col-lg-3">
-					<input type="text" class="form-control" id="inputUsername" placeholder="Username">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="inputPassword" class="col-lg-2 control-label">Password</label>
-				<div class="col-lg-3">
-					<input type="password" class="form-control" id="inputPassword" placeholder="Password">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-lg-10 col-lg-offset-2">
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</div>
-			</div>
-			</fieldset --->
-		</form>
-	</div>
-	{% endif %}
-{% endblock %}
-</body>
+				<!-- Display each form. The as_p method wraps each element in a paragraph
+					 (<p>) element. This ensures each element appears on a new line,
+					 making everything look neater. -->
+				{{ user_form.as_p }}
+				{{ reg_form.as_p }}
+
+				<!-- Provide a button to click to submit the form. -->
+				<input type="submit" name="submit" value="Register" />
+			</form>
+			{% endif %}
+		{% endblock%}
+    </body>
 </html>
-
-

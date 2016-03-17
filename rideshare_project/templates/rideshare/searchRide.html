@@ -14,18 +14,17 @@
 		<input type="text" id="searchBox" class="input-medium search-query" name="timeDB" placeholder="Search">
 		<input type="submit" class="btn" value="TimeSearch" >
 	</form> --->
-	
-	
+
 	{% if journeys %}
 	<div id="journey">
 			<table>
 				<tr>
 					<input class="search" placeholder="Search" />
-						<th><button class="sort" data-sort="departure">Departure: </button></th>
-						<th><button class="sort" data-sort="destination">Destination: </button></th>
-						<th><button class="sort" data-sort="date">Date: </button></th>
-						<th><button class="sort" data-sort="time">Departure Time: </button></th>
-						<th><button class="sort" data-sort="return">Return Journey?: </button></th>
+						<th><button class="sort" data-sort="departure">Departure </button></th>
+						<th><button class="sort" data-sort="destination">Destination </button></th>
+						<th><button class="sort" data-sort="date">Date </button></th>
+						<th><button class="sort" data-sort="time">Departure Time </button></th>
+						<th><button class="sort" data-sort="return">Return Journey? </button></th>
 				</tr>
 				<tbody class="list">
 					{% for journey in journeys %}
