@@ -17,28 +17,39 @@
 	
 	
 	{% if journeys %}
-		<table>
-			<tr>
-				<th>Departure: </th>
-				<th>Destination: </th>
-				<th>Date: </th>
-				<th>Departure Time: </th>
-				<th>Return Journey?: </th>
-			</tr>
-			{% for journey in journeys %}
-			<tr>
-					<td>{{ journey.departure }}</td>
-					<td>{{ journey.destination }}</td>
-					<td>{{ journey.travelling_date }}</td>
-					<td>{{ journey.travelling_time }}</td>
-					<td>{{ journey.is_return }}</td>
-					</br>
-			</tr>
-			{% endfor %}
-		</table>
-    {% else %}
-        <strong>There are no journeys currently.</strong>
-    {% endif %}
+	<div id="journey">
+			<table>
+				<tr>
+					<input class="search" placeholder="Search" />
+						<th><button class="sort" data-sort="departure">Departure: </button></th>
+						<th><button class="sort" data-sort="destination">Destination: </button></th>
+						<th><button class="sort" data-sort="date">Date: </button></th>
+						<th><button class="sort" data-sort="time">Departure Time: </button></th>
+						<th><button class="sort" data-sort="return">Return Journey?: </button></th>
+				</tr>
+				<tbody class="list">
+					{% for journey in journeys %}
+					<tr>
+							<td class="departure">{{ journey.departure }}</td>
+							<td class="destination">{{ journey.destination }}</td>
+							<td class="date">{{ journey.travelling_date }}</td>
+							<td class="time">{{ journey.travelling_time }}</td>
+							<td class="return">{{ journey.is_return }}</td>
+							</br>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+	{% else %}
+		<strong>There are no journeys currently.</strong>
+	{% endif %}
+	</div>
+<script src="http://listjs.com/no-cdn/list.js"></script>	
+<script>var options = {
+  valueNames: [ 'departure', 'destination', 'date', 'time', 'return' ]
+};
+
+var userList = new List('journey', options);</script>
 {% endblock %}
 </body>
 </html>

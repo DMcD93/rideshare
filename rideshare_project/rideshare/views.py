@@ -111,3 +111,9 @@ def search_ride(request):
     context_dict = {'journeys': journey_list}
 
     return render(request, 'rideshare/searchRide.html', context_dict)	
+	
+def search_ride_departure(request):
+    journey_list = Journey.objects.order_by()
+    context_dict = {'journeys': journey_list}
+
+    return render(request, 'rideshare/searchRide.html', context_dict)
