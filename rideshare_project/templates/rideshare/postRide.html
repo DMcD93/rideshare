@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 {% extends 'rideshare/base.html' %}
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Vehicle Details</title>
-    <link rel="stylesheet" href="../../static/CSS/style.css" />	
 </head>
 <body>
 {% block body_block %}
@@ -64,28 +64,8 @@
 
 		</fieldset>
 	</form>
-	
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-	<script>
-	function initialize() {
-
-	var defaultBounds = new google.maps.LatLngBounds(
-		new google.maps.LatLng(55.8642, -4.2518)
-	);
-
-	var options = {
-		bounds: defaultBounds,
-		componentRestrictions: {country: 'gb'}
-	};
-
-	var inputFrom = document.getElementById('travellingFromInput');
-	var inputTo = document.getElementById('travellingToInput');
-	var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom, options);
-	var autocompleteTo = new google.maps.places.Autocomplete(inputTo, options);
-	}
-
-	google.maps.event.addDomListener(window, 'load', initialize);
-</script>
+<script type="text/javascript" src="{% static 'rideshare/autocompleteAPI.js' %}"></script>	
+<script type="text/javascript" src="{% static 'rideshare/autocomplete.js' %}"></script>	
 {% endblock %}
 </body>
 </html>
