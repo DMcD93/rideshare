@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rideshare/', include('rideshare.urls')),
 	url(r'^search_ride', views.search_ride, name='search_ride'),
+	url(r'^post_ride', views.post_ride, name='post_ride'),
 )

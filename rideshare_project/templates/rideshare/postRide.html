@@ -4,51 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Vehicle Details</title>
-    <link rel="stylesheet" href="../../static/CSS/style.css" />
+    <link rel="stylesheet" href="../../static/CSS/style.css" />	
 </head>
 <body>
 {% block body_block %}
-	<div class="jumbotron">
+	<h1>Add a new journey</h1>
 	<form class="form-horizontal">
 		<fieldset>
 		<legend> Vehicle Details</legend>
-		<div class="form-group">
-		  <label for="inputFname" class="col-lg-2 control-label">First Name:</label>
-		  <div class="col-lg-3">
-			<input type="text" class="form-control" id="inputFname" placeholder="Your Name">
-		  </div>
-		</div>
-		  <div class="form-group">
-			<label for="inputSname" class="col-lg-2 control-label">Surname Name:</label>
-			<div class="col-lg-3">
-				<input type="text" class="form-control" id="inputSname" placeholder="Surname">
-			</div>
-		  </div>
-		  <div class="form-group">
-			<label for="email" class="col-lg-2 control-label">University Email:</label>
-			<div class="col-lg-3">
-				<input type="text" class="form-control" id="email" placeholder="University email address">
-			</div>
-		  </div>
-		  <div class="form-group">
-			<label for="age" class="col-lg-2 control-label">Age:</label>
-			<div class="col-lg-3">
-				<input type="text" class="form-control" id="age" placeholder="Age">
-			</div>
-		  </div>
-		<div class="form-group">
-		  <label for="inputPassword" class="col-lg-2 control-label">Password:</label>
-		  <div class="col-lg-3">
-			<input type="password" class="form-control" id="inputPassword" placeholder="Password">
-		  </div>
-		</div>
-		  <div class="form-group">
-			<label for="phone" class="col-lg-2 control-label">Phone Number:</label>
-			<div class="col-lg-3">
-				<input type="text" class="form-control" id="phone" placeholder="Password">
-			</div>
-		  </div>
-		  <div class="form-group">
+		  <!--<div class="form-group">
 			<label for="vehicle" class="col-lg-2 control-label">Vehicle:</label>
 			<div class="col-lg-3">
 				<input type="text" class="form-control" id="vehicle" placeholder="Vehicle Name">
@@ -59,72 +23,69 @@
 			<div class="col-lg-3">
 				<input type="text" class="form-control" id="seat" placeholder="No. of seats available">
 			</div>
-		  </div>
-			<div class="form-group">
-			  <label for="images" class="col-lg-2 control-label">Photos:</label>
-			<div class="col-lg-3">
-				<input type="text" class="form-control" id="images" placeholder="Images">
-			</div>
-		  </div>
+		  </div> -->
 		  <div class="form-group">
 			<label for="travlFrm" class="col-lg-2 control-label">Travelling From:</label>
 			<div class="col-lg-3">
-				<input type="text" class="form-control" id="travlFrm" placeholder="Place">
+				<input id="travellingFromInput" class="form-control" type="text" placeholder="Place">
 			</div>
 		  </div>
 		  <div class="form-group">
-			<label for="travlTo" class="col-lg-2 control-label">Travelling From:</label>
+			<label for="travlTo" class="col-lg-2 control-label">Travelling To:</label>
 			<div class="col-lg-3">
-				<input type="text" class="form-control" id="travlTo" placeholder="Place">
+				<input id="travellingToInput" class="form-control"type="text" placeholder="Place">
 			</div>
 		  </div>
 			<div class="form-group">
-			<label for="travlTo" class="col-lg-2 control-label">Days of Travel:</label>
-			<div class="checkbox">
-			  <label>
-				<input type="checkbox"> Mon
-			  </label>
-				<label>
-				  <input type="checkbox"> Tue
-				</label>
-				<label>
-				  <input type="checkbox"> Wed
-				</label>
-				<label>
-				  <input type="checkbox"> Thu
-				</label>
-				<label>
-				  <input type="checkbox"> Fri
-				</label>
-				<label>
-				  <input type="checkbox"> Sat
-				</label>
-				<label>
-				  <input type="checkbox"> Sun
-				</label>
+			<label for="travelDate" class="col-lg-2 control-label">Date of Travel:</label>
+			<div class="col-lg-3">
+				<input type="date" class="form-control" id="travelDate" placeholder="Date">
 			</div>
-				</div>
+			</div>
 		  <div class="form-group">
 			  <label for="startTime" class="col-lg-2 control-label">Start Time:</label>
 			<div class="col-lg-3">
-				<input type="text" class="form-control" id="startTime" placeholder="Time">
+				<input type="time" class="form-control" id="startTime" placeholder="Time">
 			</div>
 		  </div>
 			<div class="form-group">
-			  <label for="returnTime" class="col-lg-2 control-label">Return Time:</label>
+			  <label for="returnTime" class="col-lg-2 control-label">Return Journey?:</label>
 			<div class="col-lg-3">
-				<input type="text" class="form-control" id="returnTime" placeholder="Time">
+				<label>
+					<input type="checkbox" class="control" value="False" placeholder="Return?">
+				</label>
 			</div>
 		  </div>
-			<div class="form-group">
+		<div class="form-group">
 		  <div class="col-lg-10 col-lg-offset-2">
 			<button type="submit" class="btn btn-primary">Add</button>
 		  </div>
 		</div>
 
-		  </fieldset>
-	  </form>
-	</div>
+		</fieldset>
+	</form>
+	
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+	<script>
+	function initialize() {
+
+	var defaultBounds = new google.maps.LatLngBounds(
+		new google.maps.LatLng(55.8642, -4.2518)
+	);
+
+	var options = {
+		bounds: defaultBounds,
+		componentRestrictions: {country: 'gb'}
+	};
+
+	var inputFrom = document.getElementById('travellingFromInput');
+	var inputTo = document.getElementById('travellingToInput');
+	var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom, options);
+	var autocompleteTo = new google.maps.places.Autocomplete(inputTo, options);
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+</script>
 {% endblock %}
 </body>
 </html>

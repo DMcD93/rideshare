@@ -10,11 +10,12 @@
 {% block body_block %}
         <form id="login_form" method="post" action="/rideshare/login/">
             {% csrf_token %}
-            Username: <input type="text" name="username" value="" size="50" autofocus/>
-            <br />
-            Password: <input type="password" name="password" value="" size="50" />
-            <br />
-
+			
+            Username: <br />
+			<input type="text" name="username" value="" size="50" autofocus/> </br>
+			Password: <br />
+			<input type="password" name="password" value="" size="50" />
+			<br />
             <input type="submit" value="submit" />
         </form>
 </form>
