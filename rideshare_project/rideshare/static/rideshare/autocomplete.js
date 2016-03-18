@@ -9,8 +9,8 @@ var options = {
 	componentRestrictions: {country: 'gb'}
 };
 
-var inputFrom = document.getElementById('travellingFromInput');
-var inputTo = document.getElementById('travellingToInput');
+var inputFrom = document.getElementById('id_departure');
+var inputTo = document.getElementById('id_destination');
 var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom, options);
 var autocompleteTo = new google.maps.places.Autocomplete(inputTo, options);
 }

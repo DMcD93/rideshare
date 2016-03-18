@@ -43,8 +43,8 @@ class Journey(models.Model):
     """
     Creating database to store user journey details
     """
-    departure = models.CharField(max_length=30)
-    destination = models.CharField(max_length=30)
+    departure = models.CharField(max_length=100)
+    destination = models.CharField(max_length=100)
     travelling_date = models.DateField(null = True)
     travelling_time = models.TimeField(null = True)
     is_return = models.BooleanField(default=False)
