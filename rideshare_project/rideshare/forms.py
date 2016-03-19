@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from rideshare.models import Users_Reg, Journey
+from rideshare.models import Users_Reg, Journey, Vehicle
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -28,3 +28,8 @@ class JourneyForm(forms.ModelForm):
             'travelling_date': DateInput(),
 			'travelling_time': TimeInput()
         }
+		
+class VehicleForm(forms.ModelForm):
+	class Meta:
+		model = Vehicle
+		fields = ('reg_no', 'make', 'model', 'no_of_seats')

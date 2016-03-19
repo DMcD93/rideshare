@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Users_Reg(models.Model):
     """
@@ -30,9 +31,14 @@ class Vehicle(models.Model):
     Creating database to store vehicle information
     make = "ford"
     """
-    registration_number = models.CharField(max_length=30)
+    reg_no = models.CharField(max_length=8)
     make = models.CharField(max_length=30)
-    no_of_seats = models.SmallIntegerField()
+    model = models.CharField(max_length=30)
+    no_of_seats = models.SmallIntegerField(default=1,
+        validators=[
+            MaxValueValidator(12),
+            MinValueValidator(1)
+        ])
     user = models.ForeignKey(User)
 
     class Meta:
@@ -48,7 +54,9 @@ class Journey(models.Model):
     travelling_date = models.DateField(null = True)
     travelling_time = models.TimeField(null = True)
     is_return = models.BooleanField(default=False)
+	#cost = models.DecimalField(max_digits=2, decimal_places=2), null=True)
     #user = models.ManyToManyField(User)
+	#vehicle = user = models.ForeignKey(Vehicle)
 
     class Meta:
         db_table = "journey"

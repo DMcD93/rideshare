@@ -15,8 +15,9 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
+	url(r'^', include('rideshare.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^rideshare/', include('rideshare.urls')),
 	url(r'^search_ride', views.search_ride, name='search_ride'),
 	url(r'^post_ride', views.post_ride, name='post_ride'),
+	url(r'^add_vehicle', views.add_vehicle, name='add_vehicle'),
 )

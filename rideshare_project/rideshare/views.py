@@ -1,12 +1,12 @@
 # Create your views here.
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-from rideshare.forms import UserForm, UserRegForm, JourneyForm
+from rideshare.forms import UserForm, UserRegForm, JourneyForm, VehicleForm
 #from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from rideshare.models import Journey
+from rideshare.models import Journey, Vehicle
 
 def main(request):
 	return render(request, 'rideshare/main.html')	
@@ -156,5 +156,42 @@ def search_ride(request):
 		context_dict = {'journeys': journey_list}
 
 		return render(request, 'rideshare/searchRide.html', context_dict)	
+	else:
+		 return HttpResponseRedirect('/rideshare/login')
+		 
+def add_vehicle(request):
+	successful = False
+
+	if request.user.is_authenticated():		
+		# If it's a HTTP POST, we're interested in processing form data.
+		if request.method == 'POST':
+			# Attempt to grab information from the raw form information.
+			# Note that we make use of both UserForm and UserProfileForm.
+			vehicle_form = VehicleForm(data=request.POST)
+
+			# If the two forms are valid...
+			if vehicle_form.is_valid():
+				# Save the user's form data to the database.
+				vehicle = vehicle_form.save(commit=False)
+				vehicle.user = request.user
+				vehicle.save()
+				successful = True
+
+			# Invalid form or forms - mistakes or something else?
+			# Print problems to the terminal.
+			# They'll also be shown to the user.
+			else:
+				print vehicle_form.errors
+
+		# Not a HTTP POST, so we render our form using two ModelForm instances.
+		# These forms will be blank, ready for user input.
+		else:
+			vehicle_form = VehicleForm()
+			
+		# Render the template depending on the context.	
+		return render(request,
+				'rideshare/addVehicle.html',
+				{'vehicle_form': vehicle_form, 'successful': successful} )
+				
 	else:
 		 return HttpResponseRedirect('/rideshare/login')
