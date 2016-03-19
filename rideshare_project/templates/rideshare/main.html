@@ -1,22 +1,51 @@
 <!DOCTYPE html>
-{% extends 'rideshare/base.html' %}
 
 <html>
 
     <head>
         <title>RideShare</title>
+	<link rel="stylesheet" href="../../static/CSS/style.css" />
+	  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     </head>
 
     <body>
-	
-	{% block body_block %}
-		<div class="jumbotron">
-		  <h1>Welcome to RideShare!</h1>
-		  <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-		  <p><a class="btn btn-primary btn-lg" href="/search_ride/">Search for a Ride</a>
-		  <a class="btn btn-primary btn-lg" href="/post_ride/">Post a Ride</a></p>
+	<script>
+		$(function() {
+		$( "#datepicker" ).datepicker();
+		});
+	</script>
+  
+		<div class="jumbotron" />
+        	<div id="navbar-form">
+				<img src= "../../static/images/uni_logo.png" id="img" class="img-thumbnail" style="background-color: #ecf0f1; width: 300px; height=70px; padding-right: 100px; float: left">
+				<a href="/rideshare/login/" class="navbar-btn">Login</a>&nbsp
+				<a href="/rideshare/register/">Register</a>&nbsp
+				<a href="/rideshare/post_ride/">Post Ride</a><br />
+			</div>
 		</div>
-	{% endblock %}
+		
+		
+		<div>
+			
+		<form class="navbar-form form-group" id="search_form" method="post" action="/rideshare/results/" enctype="multipart/form-data">
+			<fieldset class="form-control" style="padding: 20px; width:500px; border-width: 0px;; float: right">
+			<!---fieldset--->
+				
+					<div class="form-group">
+					<div class="col-lg-3">
+						<input type="text" class="form-control" id="from_location" placeholder="From Location"></br></br>
+						<input type="text" class="form-control" id="to_location" placeholder="Destination"></br></br>
+						<input type="date" class="form-control" id="datepicker" placeholder="Date of Journey"></br></br>
+						<input type="submit" class="btn btn-primary" value="Search Rides"></br>
+					</div>
+					</div>
+    				     
+			</fieldset>
+		
+		</form>
+		</div>
     </body>
 
 </html>

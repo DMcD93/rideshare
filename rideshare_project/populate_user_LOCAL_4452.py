@@ -63,8 +63,4 @@ if __name__ == '__main__':
 	print "Starting population script..."
 	
 
-<<<<<<< HEAD
 	populate()
-=======
-	populate()
->>>>>>> ef1b18c25a227eb7cf2fb0110531c0ce42609319

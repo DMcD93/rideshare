@@ -1,32 +1,61 @@
 <!DOCTYPE html>
-{% extends 'rideshare/base.html' %}
-<html>
-    <head>
-        <title>User Registration Details</title>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration Details</title>
+	
+    <link rel="stylesheet" href="../../static/CSS/style.css" />
+</head>
 
-    <body>
-        <h1>Register with Rango</h1>
-		{% block body_block %}
-			{% if registered %}
-				Rideshare says: <strong>thank you for registering!</strong>
-				<a href="/rideshare/">Return to the homepage.</a><br />
-			{% else %}
-			<form id="user_form" method="post" action="/rideshare/registration/"
-					enctype="multipart/form-data">
+<body>
 
+{% if registered %}
+
+{% else %}
+<div class="jumbotron">
+	
+	<form class="form-horizontal" id="user_form" method="post" action="/rideshare/registration/" enctype="multipart/form-data">
+		<fieldset>
+		   <legend>User Registration Details</legend>
 				{% csrf_token %}
+					{% for field in user_form %}
+						<div class="form-group">
+							<label class="col-lg-2 control-label">{{field.label}}</label>
+							<div class="col-lg-3">
+								<input type="text" class="form-control">
+							</div>
+						</div>	
+					{% endfor %}
+		
+					{% for field in profile_reg %}
+						<div class="form-group">
+							<label class="col-lg-2 control-label">{{field.label}}</label>
+							<div class="col-lg-3">
+								<input type="text" class="form-control">
+							</div>
+						</div>	
+					{% endfor %}
+	
+				<div class="form-group">
+					<div class="col-lg-10 col-lg-offset-2">
+						<input type="submit" class="btn btn-primary" name="submit" value="Register" />
+					</div>
+				</div>	
+		</fieldset>	
+	</form>
+	
+	{% if messages %}
+			<ul class="messages">
+				{% for msg in messages %}       
+					<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				{% endfor %}
+			</ul>
+	{% endif %}
+	
+</div>
 
-				<!-- Display each form. The as_p method wraps each element in a paragraph
-					 (<p>) element. This ensures each element appears on a new line,
-					 making everything look neater. -->
-				{{ user_form.as_p }}
-				{{ reg_form.as_p }}
-
-				<!-- Provide a button to click to submit the form. -->
-				<input type="submit" name="submit" value="Register" />
-			</form>
-			{% endif %}
-		{% endblock%}
-    </body>
+{% endif %}
+</body>
 </html>
+
+
