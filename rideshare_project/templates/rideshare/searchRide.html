@@ -26,6 +26,8 @@
 						<th><button class="sort" data-sort="time">Departure Time </button></th>
 						<th><button class="sort" data-sort="return">Return Journey? </button></th>
 				</tr>
+				</br>
+				</br>
 				<tbody class="list">
 					{% for journey in journeys %}
 					<tr>
@@ -34,7 +36,6 @@
 							<td class="date">{{ journey.travelling_date }}</td>
 							<td class="time">{{ journey.travelling_time }}</td>
 							<td class="return">{{ journey.is_return }}</td>
-							</br>
 					</tr>
 					{% endfor %}
 				</tbody>
