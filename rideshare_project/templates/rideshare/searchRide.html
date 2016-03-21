@@ -39,6 +39,8 @@
 							<td class="cost">£{{ journey.cost }}</td>
 							<td class="seatsAvailable">{{ journey.seatsAvailable }}</td>
 							<td>
+							
+							{% if journey.seatsAvailable >= 1 %}
 								<td>
 								<form name="book_form" method="post" action="{% url 'search:bookSeat' journey.journey %}">
 									{% csrf_token %}
@@ -46,6 +48,7 @@
 								</form>
 								</td> 
 							</td>
+							{% endif %}
 					</tr>
 					{% endfor %}
 				</tbody>

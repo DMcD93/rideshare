@@ -183,7 +183,7 @@ def add_vehicle(request):
 				successful = True
 
 			# Invalid form or forms - mistakes or something else?
-			# Print problems to the terminal.
+			# Print problems to the terminal.3
 			# They'll also be shown to the user.
 			else:
 				print vehicle_form.errors
@@ -202,7 +202,23 @@ def add_vehicle(request):
 		 return HttpResponseRedirect('/login')
 		 
 def bookSeat(request, journey):
-	p = Passanger.objects.create(journey=(Journey.objects.get(pk=journey)), front=request.user)
-	p.save()
+	p, created = Passanger.objects.get_or_create(journey=(Journey.objects.get(pk=journey)))
+	q = Journey.objects.get(pk=journey)
+	if created:
+		p.front=request.user
+		p.save()
+		q.seatsAvailable -= 1
+		q.save()
+	else:
+		if p.backLeft is None:
+			p.backLeft=request.user
+			p.save()
+			q.seatsAvailable -= 1
+			q.save()
+		else:
+			p.backRight=request.user
+			p.save()
+			q.seatsAvailable -= 1
+			q.save()
 	return HttpResponseRedirect(reverse('search:search_ride'))
 # Create your views here.
