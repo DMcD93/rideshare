@@ -1,32 +1,89 @@
 <!DOCTYPE html>
 {% extends 'rideshare/base.html' %}
-<html>
-    <head>
-        <title>User Registration Details</title>
-    </head>
 
-    <body>
-        <h1>Register with Rango</h1>
-		{% block body_block %}
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>User Registration Details</title>
+    <link rel="stylesheet" href="../../static/CSS/style.css"/>
+</head>
+
+<body>
+<h1>Register with Rango</h1>
+
+{% block body_block %}
 			{% if registered %}
-				Rideshare says: <strong>thank you for registering!</strong>
-				<a href="/rideshare/">Return to the homepage.</a><br />
+        <div class="jumbotron">
+
+            <h1>Thank you for registering!</h1>
+              <p>We are very happy to serve you, Hope you find your ride.</p>
+              <p><a href="/login/" class="btn btn-primary">Login</a></p>
+            </div>
 			{% else %}
-			<form id="user_form" method="post" action="/rideshare/registration/"
-					enctype="multipart/form-data">
+            <div class="jumbotron">
+            <form id="user_form" method="post" action="/rideshare/registration/"
+                  enctype="multipart/form-data" class="form-horizontal">
 
-				{% csrf_token %}
+                {% csrf_token %}
+                {% for field in user_form %}
+                <fieldset class="form-group">
+                    <label class="col-lg-2 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                    <div class="col-lg-3">
+                        {% if field.errors %}
+                        <div class="form-group has-error">
+                        {% endif %}
+                            <input type="{{ field.field.widget.input_type }}" class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   placeholder="{{ field.name }}"
+                                   size="50">
+                            <span class="help-block">{{ field.help_text }} </span>
+                       {% if field.errors %}
+                        <label class="control-label" for="id_{{ field.name }}">  {{ field.errors }}
+                      </label>
 
-				<!-- Display each form. The as_p method wraps each element in a paragraph
-					 (<p>) element. This ensures each element appears on a new line,
-					 making everything look neater. -->
-				{{ user_form.as_p }}
-				{{ reg_form.as_p }}
+                        </div>
+                       {% endif %}
 
-				<!-- Provide a button to click to submit the form. -->
-				<input type="submit" name="submit" value="Register" />
-			</form>
-			{% endif %}
-		{% endblock%}
-    </body>
+                    </div>
+                </fieldset>
+                {% endfor %}
+                {% for regfield in reg_form %}
+
+                <fieldset class="form-group">
+                    <label class="col-lg-2 control-label" for="id_{{ regfield.name }}">{{ regfield.label }}</label>
+                    <div class="col-lg-3">
+
+                        {% if regfield.errors %}
+                        <div class="form-group has-error">
+                        {% endif %}
+                        <input type="{{ regfield.field.widget.input_type }}" class="form-control"
+                               name="{{ regfield.name }}"
+                               id="id_{{ regfield.name }}"
+                               placeholder="{{ regfield.name }}"
+                               size="50">
+                        <span class="help-block">{{ regfield.help_text }} </span>
+                             {% if regfield.errors %}
+                        <label class="control-label" for="id_{{ regfield.name }}">  {{ regfield.errors }}
+                      </label>
+                        </div>
+                       {% endif %}
+                    </div>
+                </fieldset>
+                {% endfor %}
+                <!-- Display each form. The as_p method wraps each element in a paragraph
+                     (<p>) element. This ensures each element appears on a new line,
+                     making everything look neater. -->
+
+                <!-- Provide a button to click to submit the form. -->
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <input type="submit" name="submit" value="Register" class="btn btn-primary"/>
+                    </div>
+                </div>
+                </form>
+        </div>
+    {% endif %}
+{% endblock%}
+
+</body>
 </html>

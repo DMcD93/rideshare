@@ -7,24 +7,53 @@
     <title>Journey Details</title>
 </head>
 <body>
-	<h1>Add a new journey</h1>
 	{% block body_block %}
 	
 	{% if successful %}#
-				Rideshare says: <strong>thank you for posting!</strong>
-				<a href="/rideshare/">Return to the homepage.</a><br />
+	        <div class="jumbotron">
+
+              <p>Thank you for posting! We are very happy to serve you.</p>
+              <p><a href="/rideshare/" class="btn btn-primary">Return to the homepage</a></p>
+            </div>
 	{% else %}
+<div class="jumbotron">
 	<form id="journey_form" class="form-horizontal" method="post" action="/post_ride/"
 					enctype="multipart/form-data">
 		  
 		  {% csrf_token %}
-		  
-		  {{ journey_form.as_p }}
-		  
-		  <input type="submit" name="submit" value="Add Ride" />
+		       {% for field in journey_form %}
+                <fieldset class="form-group">
+                    <label class="col-lg-2 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                    <div class="col-lg-3">
+                        {% if field.errors %}
+                        <div class="form-group has-error">
+                        {% endif %}
+                            <input type="{{ field.field.widget.input_type }}" class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   placeholder="{{ field.name }}"
+                                   size="50">
+                            <span class="help-block">{{ field.help_text }} </span>
+                       {% if field.errors %}
+                        <label class="control-label" for="id_{{ field.name }}">  {{ field.errors }}
+                      </label>
+
+                        </div>
+                       {% endif %}
+
+                    </div>
+                </fieldset>
+                {% endfor %}
+ 				<div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <input type="submit" name="submit" value="Add Ride" class="btn btn-primary"/>
+                    </div>
+                </div>
+
 
 		</fieldset>
 	</form>
+	</div>
 	<script type="text/javascript" src="{% static 'rideshare/autocompleteAPI.js' %}"></script>
 	<script type="text/javascript" src="{% static 'rideshare/autocomplete.js' %}"></script>	
 	{% endif %}
