@@ -1,12 +1,14 @@
 # Create your views here.
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rideshare.forms import UserForm, UserRegForm, JourneyForm, VehicleForm
 #from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from rideshare.models import Journey, Vehicle
+from rideshare.models import Journey, Vehicle, Passanger
+from django.core.urlresolvers import reverse
+from django.views import generic
 
 def main(request):
 	return render(request, 'rideshare/main.html')	
@@ -37,7 +39,7 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                return HttpResponseRedirect('/rideshare/')
+                return HttpResponseRedirect('/')
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your rideshare account is disabled.")
@@ -60,7 +62,7 @@ def user_logout(request):
     logout(request)
 
     # Take the user back to the homepage.
-    return HttpResponseRedirect('/rideshare/')
+    return HttpResponseRedirect('/')
 
 def register(request):
 
@@ -124,11 +126,14 @@ def post_ride(request):
 			# Note that we make use of both UserForm and UserProfileForm.
 			journey_form = JourneyForm(data=request.POST)
 
+			vehicle = Vehicle.objects.get(user=request.user)
+			
 			# If the two forms are valid...
 			if journey_form.is_valid():
 				# Save the user's form data to the database.
-				journey = journey_form.save()
-				
+				journey = journey_form.save(commit=False)
+
+				journey.save()
 				successful = True
 
 			# Invalid form or forms - mistakes or something else?
@@ -148,16 +153,16 @@ def post_ride(request):
 				{'journey_form': journey_form, 'successful': successful} )
 				
 	else:
-		 return HttpResponseRedirect('/rideshare/login')
+		 return HttpResponseRedirect('/login')
 	
 def search_ride(request):
 	if request.user.is_authenticated():
-		journey_list = Journey.objects.order_by('-travelling_date', 'travelling_time')
+		journey_list = Journey.objects.order_by('-travelling_date', 'travelling_time', '-cost')
 		context_dict = {'journeys': journey_list}
 
 		return render(request, 'rideshare/searchRide.html', context_dict)	
 	else:
-		 return HttpResponseRedirect('/rideshare/login')
+		 return HttpResponseRedirect('/login')
 		 
 def add_vehicle(request):
 	successful = False
@@ -194,4 +199,10 @@ def add_vehicle(request):
 				{'vehicle_form': vehicle_form, 'successful': successful} )
 				
 	else:
-		 return HttpResponseRedirect('/rideshare/login')
+		 return HttpResponseRedirect('/login')
+		 
+def bookSeat(request, journey):
+	p = Passanger.objects.create(journey=(Journey.objects.get(pk=journey)), front=request.user)
+	p.save()
+	return HttpResponseRedirect(reverse('search:search_ride'))
+# Create your views here.

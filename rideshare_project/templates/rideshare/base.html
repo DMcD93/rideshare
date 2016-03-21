@@ -41,12 +41,12 @@
 			  {% if user.is_authenticated %}
 			  <ul class="nav navbar-nav navbar-right">
                 <li><a href="/add_vehicle/">{{user.username}}</a></li>
-				<li><a href="/rideshare/logout/">Logout</a></li>
+				<li><a href="/logout/">Logout</a></li>
 			  </ul>
 			  {% else %}
 			  <ul class="nav navbar-nav navbar-right">
-				<li><a href="/rideshare/login/">Login</a></li>
-				<li><a href="/rideshare/registration/">Register</a></li>
+				<li><a href="/login/">Login</a></li>
+				<li><a href="/registration/">Register</a></li>
 			  </ul>
 			  {% endif %}
 			</div>

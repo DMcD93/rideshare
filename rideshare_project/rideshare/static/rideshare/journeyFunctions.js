@@ -1,5 +1,5 @@
 var options = {
-  valueNames: [ 'departure', 'destination', 'date', 'time', 'return' ]
+  valueNames: [ 'user', 'departure', 'destination', 'date', 'time', 'cost', 'seatsAvailable' ]
 };
 
 var userList = new List('journey', options);
