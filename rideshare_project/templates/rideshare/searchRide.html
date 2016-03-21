@@ -8,27 +8,30 @@
 </head>
 <body>
 {% block body_block %}
-	<h1>Search for a Ride</h1>
-	
+	<h3>Search for a Ride</h3>
+
 	<!--- <form method="get" action="/results/" class="navbar-form pull-right">
 		<input type="text" id="searchBox" class="input-medium search-query" name="timeDB" placeholder="Search">
 		<input type="submit" class="btn" value="TimeSearch" >
 	</form> --->
-
 	{% if journeys %}
 	<div id="journey">
-			<table>
-				<tr>
-					<input class="search" placeholder="Search" />
-						<th><button class="sort" data-sort="departure">Departure </button></th>
-						<th><button class="sort" data-sort="destination">Destination </button></th>
-						<th><button class="sort" data-sort="date">Date </button></th>
-						<th><button class="sort" data-sort="time">Departure Time </button></th>
-						<th><button class="sort" data-sort="return">Return Journey? </button></th>
+			<table class="table table-striped table-hover ">
+
+			<thead>
+   					<tr>
+					<input class="search form-control" placeholder="Search" size="50"/>
+					<div class="btn-group btn-group-justified">
+
+						<th><button class="sort btn btn-info" data-sort="departure">Departure </button></th>
+						<th><button class="sort btn btn-info" data-sort="destination">Destination </button></th>
+						<th><button class="sort btn btn-info" data-sort="date">Date </button></th>
+						<th><button class="sort btn btn-info" data-sort="time">Departure Time </button></th>
+						<th><button class="sort btn btn-info" data-sort="return">Return Journey? </button></th>
+</div>
 				</tr>
-				</br>
-				</br>
-				<tbody class="list">
+	</thead>
+			<tbody class="list">
 					{% for journey in journeys %}
 					<tr>
 							<td class="departure">{{ journey.departure }}</td>
