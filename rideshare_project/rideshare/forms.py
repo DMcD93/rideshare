@@ -39,11 +39,6 @@ class JourneyForm(forms.ModelForm):
 	    destination = destination.split(',')
 	    return destination[0]
 		
-	def clean_date(self):
-	    date = self.cleaned_data['date']
-	    date = date.split(',')
-	    return date[0]
-		
 class VehicleForm(forms.ModelForm):
 	class Meta:
 		model = Vehicle
