@@ -31,34 +31,36 @@
 			<table class="table table-striped table-hover ">
 				<thead>
 				    <tr>
-						<th><button class="sort" data-sort="departure">Departure </button></th>
-						<th><button class="sort" data-sort="destination">Destination </button></th>
-						<th><button class="sort" data-sort="date">Date </button></th>
-						<th><button class="sort" data-sort="time">Time </button></th>
-						<th><button class="sort" data-sort="cost">Cost </button></th>
-						<th><button class="sort" data-sort="seatsAvailable">Seats </button></th>
+						<th class="active">Departure <button class="btn sort glyphicon-sort pull-right" data-sort="departure"></button></th>
+						<th class="active">Destination <button class="btn sort glyphicon-sort pull-right" data-sort="destination"> </button></th>
+						<th class="active">Date <button class="btn sort glyphicon-sort pull-right" data-sort="date"> </button></th>
+						<th class="active">Time <button class="btn sort glyphicon-sort pull-right" data-sort="time"></button></th>
+						<th class="active">Cost <button class="btn sort glyphicon-sort pull-right" data-sort="cost"></button> </th>
+						<th class="active">Seats <button class="btn sort glyphicon-sort pull-right" data-sort="seatsAvailable"></button> </th>
+						<th class="active"></th>
+						<th class="active"></th>
 				    </tr>
 				</thead>
 				<tbody class="list">
 					{% for journey in journeys %}
 						{% if journey.seatsAvailable >= 1 %}
 							<tr>
-								<td class="departure">{{ journey.departure }}</td>
+								<td class="departure ">{{ journey.departure }}</td>
 								<td class="destination">{{ journey.destination }}</td>
-								<td class="date">{{ journey.travelling_date }}</td>
-								<td class="time">{{ journey.travelling_time }}</td>
-								<td class="cost">{{ journey.cost }}</td>
-								<td class="seatsAvailable">{{ journey.seatsAvailable }}</td>
+								<td class="date text-center">{{ journey.travelling_date }}</td>
+								<td class="time text-center">{{ journey.travelling_time }}</td>
+								<td class="cost text-right">{{ journey.cost }}</td>
+								<td class="seatsAvailable text-center">{{ journey.seatsAvailable }}</td>
 								<td>
 									<form name="book_form" method="post" action="{% url 'search:bookSeat' journey.journey %}">
 										{% csrf_token %}
-										<input type="submit" name="submit" value="Book" />
+										<input class="btn btn-success" type="submit" name="submit" value="Book" />
 									</form>
 								</td> 
 							</td>
 							{% endif %}
 							
-								<td class="viewride"> <a href= "/viewRide/">View Ride Details</a></td>
+								<td class="viewride btn-link"> <a href= "/viewRide/">View Ride Details</a></td>
 								</tr>
 									{% if passangers %}
 										{% for passanger in passangers %}
@@ -69,10 +71,10 @@
 															{% ifnotequal passanger.backRight|stringformat:"s" user.get_username  %}
 																<td>
 																	<form name="book_form" method="post" action="{% url 'search:bookSeat' journey.journey %}">
-																		{% csrf_token %}															
+																		{% csrf_token %}
 																		<input type="submit" name="submit" value="Book" />
 																	</form>
-																	</td> 
+																	</td>
 																</td>
 															{% endifnotequal %}
 														{% endifnotequal %}
