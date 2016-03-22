@@ -17,9 +17,9 @@
 
 	{% if journeys %}
 	<div id="journey">
-			<table>
+			<table class="table table-striped table-hover ">
 				<tr>
-					<input class="search" placeholder="Search" />
+					<input class="search form-control" placeholder="Search" size="50" />
 					<td><input type="checkbox" id="todaysRides">Todays Rides</input></td>
 					<td><input type="checkbox" id="cheapRides">Rides under < £5</input></td>				
 					<td><input type="checkbox" id="seatNo">Rides with 1+ seats</input></td>
@@ -28,19 +28,21 @@
 					 &nbsp;
 				</td>
 			</table>
-			<table>
-				<tr>
+			<table class="table table-striped table-hover ">
+				<thead>
+				    <tr>
 						<th><button class="sort" data-sort="departure">Departure </button></th>
 						<th><button class="sort" data-sort="destination">Destination </button></th>
 						<th><button class="sort" data-sort="date">Date </button></th>
 						<th><button class="sort" data-sort="time">Time </button></th>
 						<th><button class="sort" data-sort="cost">Cost </button></th>
 						<th><button class="sort" data-sort="seatsAvailable">Seats </button></th>
-				</tr>
+				    </tr>
+				</thead>
 				<tbody class="list">
 					{% for journey in journeys %}
 						{% if journey.seatsAvailable >= 1 %}
-						<tr>
+							<tr>
 								<td class="departure">{{ journey.departure }}</td>
 								<td class="destination">{{ journey.destination }}</td>
 								<td class="date">{{ journey.travelling_date }}</td>
@@ -48,16 +50,16 @@
 								<td class="cost">{{ journey.cost }}</td>
 								<td class="seatsAvailable">{{ journey.seatsAvailable }}</td>
 								<td>
-								<form name="book_form" method="post" action="{% url 'search:bookSeat' journey.journey %}">
-									{% csrf_token %}
-									<input type="submit" name="submit" value="Book" />
-								</form>
+									<form name="book_form" method="post" action="{% url 'search:bookSeat' journey.journey %}">
+										{% csrf_token %}
+										<input type="submit" name="submit" value="Book" />
+									</form>
 								</td> 
 							</td>
 							{% endif %}
 							
-							<td class="viewride"> <a href= "/viewRide/">View Ride Details</a></td>
-					</tr>
+								<td class="viewride"> <a href= "/viewRide/">View Ride Details</a></td>
+								</tr>
 									{% if passangers %}
 										{% for passanger in passangers %}
 											{% ifequal journey.journey passanger.journey.journey %}
@@ -79,8 +81,7 @@
 											{% endifequal %}
 										{% endfor %}
 									{% endif %}
-							</tr>
-						{% endif %}
+								</tr>
 
 					{% endfor %}
 				</tbody>

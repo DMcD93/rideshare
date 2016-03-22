@@ -42,7 +42,6 @@ class JourneyForm(forms.ModelForm):
 class VehicleForm(forms.ModelForm):
 	class Meta:
 		model = Vehicle
-<<<<<<< HEAD
 		fields = ('reg_no', 'make', 'model')
 		
 class SeatForm(forms.ModelForm):
@@ -57,7 +56,4 @@ class ReviewForm(forms.ModelForm):
 		widgets = {
 					'description': forms.Textarea(attrs={'cols':35, 'rows':3})
 					}
-		
-=======
-		fields = ('reg_no', 'make', 'model')
->>>>>>> 232db65f661d21e4945b7ffd721245c3230dfbb1
+
