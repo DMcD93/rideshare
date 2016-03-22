@@ -54,7 +54,7 @@ class Journey(models.Model):
     travelling_time = models.TimeField(null = True)
     seatsAvailable = models.IntegerField(default=1,
         validators=[
-            MaxValueValidator(4),
+            MaxValueValidator(3),
             MinValueValidator(1)
         ])
     cost = models.DecimalField(max_digits=4, decimal_places=2, null=True)

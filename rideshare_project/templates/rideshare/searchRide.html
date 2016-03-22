@@ -37,17 +37,32 @@
 							<td class="date">{{ journey.travelling_date }}</td>
 							<td class="time">{{ journey.travelling_time }}</td>
 							<td class="cost">£{{ journey.cost }}</td>
-							<td class="seatsAvailable">{{ journey.seatsAvailable }}</td>
+							<!--<td class="seatsAvailable">{{ journey.seatsAvailable }}</td>-->
+							<td class="user">{{ journey.seatsAvailable }}</td>
 							<td>
 							
 							{% if journey.seatsAvailable >= 1 %}
-								<td>
-								<form name="book_form" method="post" action="{% url 'search:bookSeat' journey.journey %}">
-									{% csrf_token %}
-									<input type="submit" name="submit" value="Book" />
-								</form>
-								</td> 
-							</td>
+							{% if passangers %}
+								{% for passanger in passangers %}
+									{% ifequal journey.journey passanger.journey.journey %}
+										{% ifnotequal journey.user.get|stringformat:"s" user.get_username  %}
+											{% ifnotequal passanger.front|stringformat:"s" user.get_username  %}
+												{% ifnotequal passanger.backLeft|stringformat:"s" user.get_username  %}
+													{% ifnotequal passanger.backRight|stringformat:"s" user.get_username  %}
+														<td>
+															<form name="book_form" method="post" action="{% url 'search:bookSeat' journey.journey %}">
+																{% csrf_token %}															
+																<input type="submit" name="submit" value="Book" />
+															</form>
+															</td> 
+														</td>
+													{% endifnotequal %}
+												{% endifnotequal %}
+											{% endifnotequal %}
+										{% endifnotequal %}
+									{% endifequal %}
+								{% endfor %}
+							{% endif %}
 							{% endif %}
 					</tr>
 					{% endfor %}
