@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% extends 'rideshare/base.html' %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Profile Information</title>
+    <link rel="stylesheet" href="../../static/CSS/style.css" />	
+	
+	<script src="http://malsup.github.com/jquery.form.js"></script>
+</head>
+
+<body>
+{% block body_block %}
+<div class="jumbotron">
+	<form class="form-horizontal" id="user_form" enctype="multipart/form-data">
+
+		<fieldset>
+			<legend>Profile Information</legend>
+				<div class=" nav navbar-nav navbar-right">
+					<!---a href="/ridesposted/" class="btn btn-lg btn-primary">View Rides Posted</a></br></br--->
+					<a href="/ridesPosted/">View Rides Posted</a>
+					<a href="/ridesRequested/">View Rides Requested</a><p>
+					<a href="/addVehicle/">Add Vehicle</a>
+				</div>
+			
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Username</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ user.username }}</label>
+						</div>
+				</div>	
+		
+				
+		
+				<div class="form-group">
+					<label class="col-lg-2 control-label">First Name</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ user.first_name }}</label>
+						</div>
+				</div>		
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Last Name</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ user.last_name }}</label>
+						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Email</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ user.email }}</label>
+						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Phone Number</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ profile_info.phone }}</label>
+						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">ID</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ profile_info.identity_number }}</label>
+						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Age</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ profile_info.age }}</label>
+						</div>
+				</div>
+		
+			</fieldset>
+
+			<div class="form-group">
+					<!---form id="review_form" method="post" action="/rideshare/profile/" enctype="multipart/form-data"--->				
+						<label class="col-lg-2 control-label">Reviews</label>
+						<div class="col-lg-3">
+						
+							{% for review in review_list %}
+							
+							</br><a>{{ review.posted_by }} posted on: {{ review.posted_at }}<a></br></br>
+							<Textarea disabled class="text" cols="35" rows="3">{{ review.description }}</Textarea>
+							
+							{% empty %}
+								<Textarea disabled class="text" cols="35" rows="3">No reviews posted yet</Textarea>
+							{% endfor %}
+						</div>
+						
+			</div>
+		
+	</form>	
+</div>
+
+{% endblock %}
+</body>
+
+</html>
+	

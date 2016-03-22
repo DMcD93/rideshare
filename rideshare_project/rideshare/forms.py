@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from rideshare.models import Users_Reg, Journey, Vehicle, Passanger
+from rideshare.models import Users_Reg, Journey, Vehicle, Passanger, Review
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -53,3 +53,12 @@ class SeatForm(forms.ModelForm):
 	class Meta:
 		model = Passanger
 		fields = ('front',)
+		
+class ReviewForm(forms.ModelForm):
+	class Meta:
+		model = Review
+		fields = ('description',)
+		widgets = {
+					'description': forms.Textarea(attrs={'cols':35, 'rows':3})
+					}
+		

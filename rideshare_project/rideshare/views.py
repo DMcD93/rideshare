@@ -1,14 +1,15 @@
 # Create your views here.
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
-from rideshare.forms import UserForm, UserRegForm, JourneyForm, VehicleForm
+from rideshare.forms import UserForm, UserRegForm, JourneyForm, VehicleForm, ReviewForm
 #from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from rideshare.models import Journey, Vehicle, Passanger
+from rideshare.models import Journey, Vehicle, Passanger, User, Review, Users_Reg
 from django.core.urlresolvers import reverse
 from django.views import generic
+
 
 def main(request):
 	return render(request, 'rideshare/main.html')	
@@ -29,7 +30,7 @@ def user_login(request):
         # Use Django's machinery to attempt to see if the username/password
         # combination is valid - a User object is returned if it is.
         user = authenticate(username=username, password=password)
-
+        request.session['username_session']=user.username
         # If we have a User object, the details are correct.
         # If None (Python's way of representing the absence of a value), no user
         # with matching credentials was found.
@@ -114,7 +115,7 @@ def register(request):
     # Render the template depending on the context.
     return render(request,
             'rideshare/registration.html',
-            {'user_form': user_form, 'reg_form': reg_form, 'registered': registered} )
+            {'user_form': user_form, 'reg_form': reg_form, 'registered': registered})
 
 def post_ride(request):
 	successful = False
@@ -222,3 +223,75 @@ def bookSeat(request, journey):
 			q.save()
 	return HttpResponseRedirect(reverse('search:search_ride'))
 # Create your views here.
+
+@login_required	 
+def get_user_profile(request):
+	profile = request.user
+	
+	profilename = request.session['username_session']
+	#profile_info = Users_Reg.objects.get(user__username=profilename)
+	profile_info = Users_Reg.objects.get(user__username = profile)
+	
+	review_list = Review.objects.filter(user__username = profile)
+		
+	return render(request, 'rideshare/profile.html', {'profile': profile, 'profile_info': profile_info, 
+				'review_list':review_list})
+
+
+@login_required				
+def ridesposted(request):
+	
+	profile = request.user
+
+	rides = Journey.objects.filter(user=profile)
+			
+	context_dict = {'rides': rides}
+
+	return render(request, 'rideshare/ridesPosted.html', context_dict)	
+	
+@login_required
+def get_ride_detail(request):
+	posted = False
+	"""
+	journey_id = Journey.objects.get(pk=journey)
+	journey_detail = Journey.objects.filter(journey_id)
+	driver_detail = Users_Reg.objects.filter(journey_detail.user)
+	
+	vehicle_detail = Vehicle.objects.filter(user__username=user)
+	
+	if request.method == 'POST':
+	
+		review_form = ReviewForm(data=request.POST)
+		
+		if review_form.is_valid():
+			review = review_form.save(commit = False)
+			review.user = user
+			#review.posted_by = user.username
+			review.posted_for = Journey.user.username
+			review.save()
+			posted = True
+		else:
+			review_form.errors
+	else:
+		review_form=ReviewForm()
+    """
+	return render(request, 'rideshare/rideDetail.html')
+	'''{'driver_detail':driver_detail, 'journey_detail':journey_detail, 
+				'vehicle_detail':vehicle_detail, 'review_form':review_form, 'posted':posted})'''
+
+@login_required				
+def rides_requested(request):
+
+	profile = request.user.username
+    
+	username = request.session['username_session']
+	
+	rides = Journey.objects.filter(user=profile)
+	context_dict = {'rides': rides}
+
+	return render(request, 'rideshare/ridesRequested.html', context_dict)
+	
+	
+	
+	
+	

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% extends 'rideshare/base.html' %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" href="../../static/CSS/style.css" />
+    <title>Ride Details</title>
+</head>
+<body>
+<!---{% block body_block %}--->
+<div class="jumbotron">
+	<form class="form-horizontal" id="user_form" enctype="multipart/form-data">
+
+		<fieldset>
+			<legend>Driver Details</legend>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Driver Name</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ user.first_name}} {{ user.last_name }}</label>
+						</div>
+				</div>
+				<div class=" nav navbar-nav navbar-right">
+					<!---a href="/ridesposted/" class="btn btn-lg btn-primary">View Rides Posted</a></br></br--->
+					
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Age</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ user.age }}</label>
+						</div>
+				</div>		
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Driver's Email</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ user.email }}</label>
+						</div>
+				</div>		
+				<!---div class="form-group">
+					<label class="col-lg-2 control-label">Contact Number</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ user.phone }}</label>
+						</div>
+				</div--->		
+				<div class="form-group">
+					<label class="col-lg-2 control-label">First Name</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ user.first_name }}</label>
+						</div>
+				</div>		
+				
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Last Name</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ user.last_name }}</label>
+						</div>
+				</div>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Ride Details</legend>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">From</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ journey.departure }}</label>
+						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">To</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ journey.destination }}</label>
+						</div>
+				</div>				
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Date</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ journey.travelling_date }}</label>
+						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Time</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ journey.travelling_time }}</label>
+						</div>
+				</div>
+				
+		</fieldset>
+				
+		<fieldset>
+			<legend>Car Details</legend>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Car</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ vehicle.make }}</label>
+						</div>
+				</div>		
+				<!---div class="form-group">
+					<label class="col-lg-2 control-label">Registration Number</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ vehicle.registration_number }}</label>
+						</div>
+				</div--->
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Seats Availability</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ vehicle.no_of_seats }}</label>
+						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Cost per mile (in GBP)</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ vehicle.cost }}</label>
+						</div>
+				</div>
+				<button id="opener">Accept Ride</button>
+		
+				<div class="form-group" >
+					
+					<form id="review_form" method="post" action="/rideshare/rideDetail/" enctype="multipart/form-data">				
+						<label class="col-lg-2 control-label">Reviews</label>
+						<div class="col-lg-3">
+							{% for review in review_list %}
+							
+							</br><a>{{ user.username  }} posted on: {{ review.posted_at }}<a></br></br>
+							<Textarea disabled class="text" cols="35" rows="3">{{ review.description }}</Textarea>
+						
+							{% endfor %}
+							</div>
+								{{ review_form.as_p }}
+							
+								{% if posted %}
+								Rideshare says: <strong>thank you for reviewing!</strong>
+								{% else %}
+								<strong>Click Post to post reviews</strong>
+								{% endif %}
+							<input type="submit" name="submit" value="Post" onClick="function()" />
+						</div>
+		</fieldset>
+	</form>
+</div>
+
+<!---{% endblock %}--->
+</body>
+</html>
+
+						
+						
+						
