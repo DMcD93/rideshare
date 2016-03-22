@@ -159,7 +159,7 @@ def post_ride(request):
 	
 def search_ride(request):
 	if request.user.is_authenticated():
-		journey_list = Journey.objects.order_by('-travelling_date', 'travelling_time', '-cost')
+		journey_list = Journey.objects.order_by('travelling_date', 'travelling_time', 'cost')
 		passanger_list = Passanger.objects.all()
 		context_dict = {'journeys': journey_list, 'passangers': passanger_list}
 

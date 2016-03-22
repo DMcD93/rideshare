@@ -48,8 +48,3 @@ class VehicleForm(forms.ModelForm):
 	class Meta:
 		model = Vehicle
 		fields = ('reg_no', 'make', 'model')
-		
-class SeatForm(forms.ModelForm):
-	class Meta:
-		model = Passanger
-		fields = ('front',)

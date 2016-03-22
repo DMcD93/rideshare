@@ -24,7 +24,7 @@
 						<th><button class="sort" data-sort="destination">Destination </button></th>
 						<th><button class="sort" data-sort="date">Date </button></th>
 						<th><button class="sort" data-sort="time">Time </button></th>
-						<th><button class="sort" data-sort="return">Cost </button></th>
+						<th><button class="sort" data-sort="cost">Cost </button></th>
 						<th><button class="sort" data-sort="seatsAvailable">Seats </button></th>
 				</tr>
 				</br>
@@ -38,7 +38,7 @@
 							<td class="time">{{ journey.travelling_time }}</td>
 							<td class="cost">£{{ journey.cost }}</td>
 							<!--<td class="seatsAvailable">{{ journey.seatsAvailable }}</td>-->
-							<td class="user">{{ journey.seatsAvailable }}</td>
+							<td class="seatsAvailable">{{ journey.seatsAvailable }}</td>
 							<td>
 							
 							{% if journey.seatsAvailable >= 1 %}
