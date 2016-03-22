@@ -259,7 +259,7 @@ def get_ride_detail(request):
 	journey_detail = Journey.objects.filter(journey_id)
 	driver_detail = Users_Reg.objects.filter(journey_detail.user)
 	
-	vehicle_detail = Vehicle.objects.filter(user__username=user)
+	vehicle_detail = Vehicle.objects.filter(user__username=user)"""
 	
 	if request.method == 'POST':
 	
@@ -276,7 +276,7 @@ def get_ride_detail(request):
 			review_form.errors
 	else:
 		review_form=ReviewForm()
-    """
+    
 	return render(request, 'rideshare/rideDetail.html')
 	'''{'driver_detail':driver_detail, 'journey_detail':journey_detail, 
 				'vehicle_detail':vehicle_detail, 'review_form':review_form, 'posted':posted})'''

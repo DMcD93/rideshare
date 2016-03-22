@@ -87,8 +87,9 @@ class Review(models.Model):
     """
     Creating database to store reviews from passengers
     """
-    description = models.TextField()
+    description = models.TextField(max_length=150, null=True)
     posted_at = models.DateTimeField()
+    posted_by = models.TextField(max_length=30, null=True)
     user = models.ForeignKey(User)
 
     class Meta:
