@@ -54,10 +54,14 @@ class Journey(models.Model):
     travelling_time = models.TimeField(null = True)
     seatsAvailable = models.IntegerField(default=1,
         validators=[
-            MaxValueValidator(4),
-            MinValueValidator(1)
+            MaxValueValidator(3),
+            MinValueValidator(0)
         ])
-    cost = models.DecimalField(max_digits=4, decimal_places=2, null=True)
+    cost = models.IntegerField(
+        validators=[
+            MaxValueValidator(50),
+            MinValueValidator(0)
+        ])
     user = models.ManyToManyField(Vehicle, related_name='driver')
 
     class Meta:

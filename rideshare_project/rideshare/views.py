@@ -133,8 +133,10 @@ def post_ride(request):
 			if journey_form.is_valid():
 				# Save the user's form data to the database.
 				journey = journey_form.save(commit=False)
-
 				journey.save()
+				
+				p = Passanger.objects.create(journey=journey)
+				p.save()
 				successful = True
 
 			# Invalid form or forms - mistakes or something else?
@@ -158,8 +160,9 @@ def post_ride(request):
 	
 def search_ride(request):
 	if request.user.is_authenticated():
-		journey_list = Journey.objects.order_by('-travelling_date', 'travelling_time', '-cost')
-		context_dict = {'journeys': journey_list}
+		journey_list = Journey.objects.order_by('travelling_date', 'travelling_time', 'cost')
+		passanger_list = Passanger.objects.all()
+		context_dict = {'journeys': journey_list, 'passangers': passanger_list}
 
 		return render(request, 'rideshare/searchRide.html', context_dict)	
 	else:
@@ -203,24 +206,23 @@ def add_vehicle(request):
 		 return HttpResponseRedirect('/login')
 		 
 def bookSeat(request, journey):
-	p, created = Passanger.objects.get_or_create(journey=(Journey.objects.get(pk=journey)))
+	p = Passanger.objects.get(journey=journey)
 	q = Journey.objects.get(pk=journey)
-	if created:
+	if p.front is None:
 		p.front=request.user
 		p.save()
 		q.seatsAvailable -= 1
 		q.save()
+	elif p.backLeft is None:
+		p.backLeft=request.user
+		p.save()
+		q.seatsAvailable -= 1
+		q.save()
 	else:
-		if p.backLeft is None:
-			p.backLeft=request.user
-			p.save()
-			q.seatsAvailable -= 1
-			q.save()
-		else:
-			p.backRight=request.user
-			p.save()
-			q.seatsAvailable -= 1
-			q.save()
+		p.backRight=request.user
+		p.save()
+		q.seatsAvailable -= 1
+		q.save()
 	return HttpResponseRedirect(reverse('search:search_ride'))
 # Create your views here.
 

@@ -39,14 +39,10 @@ class JourneyForm(forms.ModelForm):
 	    destination = destination.split(',')
 	    return destination[0]
 		
-	def clean_date(self):
-	    date = self.cleaned_data['date']
-	    date = date.split(',')
-	    return date[0]
-		
 class VehicleForm(forms.ModelForm):
 	class Meta:
 		model = Vehicle
+<<<<<<< HEAD
 		fields = ('reg_no', 'make', 'model')
 		
 class SeatForm(forms.ModelForm):
@@ -62,3 +58,6 @@ class ReviewForm(forms.ModelForm):
 					'description': forms.Textarea(attrs={'cols':35, 'rows':3})
 					}
 		
+=======
+		fields = ('reg_no', 'make', 'model')
+>>>>>>> 232db65f661d21e4945b7ffd721245c3230dfbb1
