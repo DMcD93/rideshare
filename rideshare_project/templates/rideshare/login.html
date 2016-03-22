@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 {% extends 'rideshare/base.html' %}
-
+{% load static %}
 	
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="{ static 'CSS/style.css' }"/>
 </head>
 <body>
 {% block body_block %}
-        <form id="login_form" method="post" action="/login/">
+<div class="jumbotron">
+        <form id="login_form" method="post" action="/login/" class="form-horizontal">
             {% csrf_token %}
 			
-            Username: <br />
-			<input type="text" name="username" value="" size="50" autofocus/> </br>
-			Password: <br />
-			<input type="password" name="password" value="" size="50" />
-			<br />
-            <input type="submit" value="submit" />
-        </form>
-</form>
+            <div class="form-group">
+            <label for="username" class="col-lg-2 control-label">Username</label>
+            <div class="col-lg-3">
+                <input type="text" class="form-control" name="username" id="username" value="" size="50"
+                       placeholder="University Email Id" class="form-control" autofocus/> </br>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-lg-2 control-label">Password</label>
+            <div class="col-lg-3">
+                <input type="password" class="form-control"  name="password"  id="password" value="" size="50"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <input type="submit" value="submit" class="btn btn-primary"/>
+            </div>
+        </div>
+    </form>
+    </div>
 {% endblock %}
 </body>
 </html>
