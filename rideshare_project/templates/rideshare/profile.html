@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Your Profile Information</title>
-    <link rel="stylesheet" href="../../static/CSS/style.css" />	
 	
 	<script src="http://malsup.github.com/jquery.form.js"></script>
 </head>
@@ -29,10 +28,10 @@
 						<div class="col-lg-3">
 							<label class="col-lg-2 control-label">{{ user.username }}</label>
 						</div>
-				</div>	
-		
+				</div>
 				
-		
+				<h3>Personal</h3>
+
 				<div class="form-group">
 					<label class="col-lg-2 control-label">First Name</label>
 						<div class="col-lg-3">
@@ -69,8 +68,33 @@
 							<label class="col-lg-2 control-label">{{ profile_info.age }}</label>
 						</div>
 				</div>
-		
+
+				<h3>Vehicle</h3>
+
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Registration Number</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ vehicle.reg_no }}</label>
+						</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Make</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ vehicle.make }}</label>
+						</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Model</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ vehicle.model }}</label>
+						</div>
+				</div
+
 			</fieldset>
+
+			<h3>Reviews</h3>
 
 			<div class="form-group">
 					<!---form id="review_form" method="post" action="/rideshare/profile/" enctype="multipart/form-data"--->
@@ -79,11 +103,8 @@
 
 							{% for review in review_list %}
 
-
-							<blockquote>
-							  <p>{{ review.description }}</p>
-							  <small>	{{ review.posted_by }} posted on: {{ review.posted_at }}</small>
-							</blockquote>
+							</br><a>{{ review.posted_by }} posted on: {{ review.posted_at }}<a></br></br>
+							<Textarea disabled class="text" cols="35" rows="3">{{ review.description }}</Textarea>
 
 							{% empty %}
 								<Textarea disabled class="text" cols="35" rows="3">No reviews posted yet</Textarea>

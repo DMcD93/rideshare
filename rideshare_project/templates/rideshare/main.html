@@ -18,13 +18,25 @@
         <H1 class="text-muted">Wheels When You Want Them</H1>
         <H1 class="text-muted pull-right">Welcome to Rideshare</H1>
     </div>
+    {% if user.is_authenticated %}
     <div style="position: absolute; right: 75px; top: 300px">
-
+    <form id="search_form" class="form-horizontal" method="post" action="/"
+						enctype="multipart/form-data">
+						{% csrf_token %}
+						{{ search_form }}
+						<input type="submit" name="submit" value="Search" />
+				</form>
         <a class="btn btn-success btn-lg" href="/search_ride/">Search for a Ride</a>
         <a class="btn btn-success btn-lg" href="/post_ride/">Post a Ride</a>
     </div>
+    {% else %}
+        <a class="btn btn-success btn-lg" href="/search_ride/">Search for a Ride</a>
+        <a class="btn btn-success btn-lg" href="/post_ride/">Post a Ride</a>
+    {% endif %}
 
 </div>
+    <script type="text/javascript" src="{% static 'rideshare/autocompleteAPI.js' %}"></script>
+	<script type="text/javascript" src="{% static 'rideshare/autocomplete.js' %}"></script>
 {% endblock %}
 </body>
 

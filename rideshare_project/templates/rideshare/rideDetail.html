@@ -17,39 +17,26 @@
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Driver Name</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.first_name}} {{user.last_name }}</label>
+							<label class="col-lg-2 control-label">{{ driver.first_name}} {{ driver.last_name }}</label>
 						</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Age</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.age }}</label>
+							<label class="col-lg-2 control-label">{{ driver.age }}</label>
 						</div>
 				</div>		
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Driver's Email</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.email }}</label>
+							<label class="col-lg-2 control-label">{{ driver.email }}</label>
 						</div>
 				</div>		
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Contact Number</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.phone }}</label>
-						</div>
-				</div>		
-				<div class="form-group">
-					<label class="col-lg-2 control-label">First Name</label>
-						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.first_name }}</label>
-						</div>
-				</div>		
-				
-				<div class="form-group">
-					<label class="col-lg-2 control-label">Last Name</label>
-						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.last_name }}</label>
+							<label class="col-lg-2 control-label">{{ driver.phone }}</label>
 						</div>
 				</div>
 		</fieldset>
@@ -80,74 +67,64 @@
 							<label class="col-lg-2 control-label">{{ journey.travelling_time }}</label>
 						</div>
 				</div>
-				
-		</fieldset>
-				
-		<fieldset>
-			<legend>Car Details</legend>
-				<div class="form-group">
-					<label class="col-lg-2 control-label">Car</label>
-						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ vehicle.make }}</label>
-						</div>
-				</div>		
-				<div class="form-group">
-					<label class="col-lg-2 control-label">Registration Number</label>
-						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ vehicle.registration_number }}</label>
-						</div>
-				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Seats Availability</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ vehicle.no_of_seats }}</label>
+							<label class="col-lg-2 control-label">{{ journey.seatsAvailable }}</label>
 						</div>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-2 control-label">Cost per mile (in GBP)</label>
+					<label class="col-lg-2 control-label">Cost</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ vehicle.cost }}</label>
+							<label class="col-lg-2 control-label">{{ journey.cost }}</label>
 						</div>
 				</div>
-				
-			
-				<form id="review_form" method="post" action="/rideDetail/" enctype="multipart/form-data">
-					<label class="col-lg-2 control-label">Reviews for the driver</label>
-						<div class="col-lg-3">
-							{% for review in review_list %}
-							
 
-							<blockquote>
-							  <p>{{ review.description }}</p>
-							  <small>	{{ review.posted_by }} posted on: {{ review.posted_at }}</small>
-							</blockquote>
-
-							{% empty %}
-								<Textarea disabled class="text" cols="35" rows="3">No reviews posted yet</Textarea>
-							{% endfor %}
-						</div></br>
-											
-							{{ review_form.as_p }}
-							
-							{% if posted %}
-									Rideshare says: <strong>thank you for reviewing!</strong>
-							{% else %}
-									<!---strong>Click Post to post reviews</strong--->
-							{% endif %}
-							</br></br>
-							<input type="submit" name="submit" value="Post" onClick="function()" />
-						
-					
-				</form>
 		</fieldset>
-	
+
+		<fieldset>
+			<legend>Car Details</legend>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Make</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ vehicle.make }}</label>
+						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Model</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ vehicle.model }}</label>
+						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Registration Number</label>
+						<div class="col-lg-3">
+							<label class="col-lg-2 control-label">{{ vehicle.reg_no }}</label>
+						</div>
+				</div>
+		</fieldset>
+	</form>
+				{% if posted %}
+					Rideshare says: <strong>thank you for reviewing!</strong>
+				{% else %}
+
+						{% for review in review_list %}
+								</br><a>{{ user.username  }} posted on: {{ review.posted_at }}<a></br></br>
+								<Textarea class="text" cols="35" rows="3">{{ review.description }}</Textarea>
+							{% empty %}
+								<Textarea class="text" cols="35" rows="3" placeholder="No reviews posted yet"></Textarea>
+						{% endfor %}
+					</br>
+					</br>
+					<form id="review_form" method="post" action="{% url 'search:get_ride_detail' journey.journey %}" enctype="multipart/form-data">
+							{% csrf_token %}
+							{{ review_form.as_p }}
+							<input type="submit" name="submit" value="Add Review" />
+					</form>
+				{% endif %}
 </div>
-</form>	
+
 
 {% endblock %}
 </body>
 </html>
-
-						
-						
-						

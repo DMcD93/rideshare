@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 {% extends 'rideshare/base.html' %}
-{% load static %}
+
 	
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="{ static 'CSS/style.css' }"/>
+
 </head>
 <body>
 {% block body_block %}
@@ -18,13 +18,13 @@
             <label for="username" class="col-lg-2 control-label">Username</label>
             <div class="col-lg-3">
                 <input type="text" class="form-control" name="username" id="username" value="" size="50"
-                       placeholder="University Email Id" class="form-control" autofocus/> </br>
+                       placeholder="username" class="form-control" autofocus/> </br>
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-lg-2 control-label">Password</label>
             <div class="col-lg-3">
-                <input type="password" class="form-control"  name="password"  id="password" value="" size="50"/>
+                <input type="password" class="form-control"  name="password"  id="password" value="" size="50" placeholder="password"/>
             </div>
         </div>
         <div class="form-group">
@@ -36,7 +36,7 @@
             <div class="form-group">
             <div class="col-lg-3 col-lg-offset-2">
                 <a href="/registration/" >New User?</a>
-                <a href="/" class="pull-right">Forgot Password ?</a>
+                <!--<a href="/" class="pull-right">Forgot Password ?</a>-->
             </div>
         </div>
     </form>
