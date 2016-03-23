@@ -52,7 +52,7 @@ def user_login(request):
         # Use Django's machinery to attempt to see if the username/password
         # combination is valid - a User object is returned if it is.
         user = authenticate(username=username, password=password)
-        request.session['username_session']=user.username
+        #request.session['username_session']=user.username
         # If we have a User object, the details are correct.
         # If None (Python's way of representing the absence of a value), no user
         # with matching credentials was found.
@@ -256,11 +256,20 @@ def bookSeat(request, journey):
 @login_required	 
 def get_user_profile(request):
 	profile_info = Users_Reg.objects.get(user__username = request.user)
-	vehicle_list = Vehicle.objects.get(user__username = request.user)
-	review_list = Review.objects.filter(user__username = request.user)
-		
-	return render(request, 'rideshare/profile.html', {'profile': request.user, 'profile_info': profile_info, 'vehicle': vehicle_list,
-				'review_list':review_list})
+	
+	exists = False
+	
+	try:
+		vehicle_list = Vehicle.objects.get(user__username = request.user)
+		print request.user
+		print vehicle_list
+		if not vehicle_list is None:
+			review_list = Review.objects.filter(user__username = request.user)
+			exists = True
+			return render(request, 'rideshare/profile.html', {'profile': request.user, 'profile_info': profile_info, 'vehicle': vehicle_list,
+					'review_list':review_list, 'exists': exists})
+	except:
+		return render(request, 'rideshare/profile.html', {'profile': request.user, 'profile_info': profile_info, 'exists': exists})
 
 
 @login_required				

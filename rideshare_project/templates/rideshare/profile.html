@@ -67,7 +67,10 @@
 						</div>
 				</div>
 				
+				{% if exists %}
+				
 				<h3>Vehicle</h3>
+				
 				
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Registration Number</label>
@@ -88,7 +91,9 @@
 						<div class="col-lg-3">
 							<label class="col-lg-2 control-label">{{ vehicle.model }}</label>
 						</div>
-				</div
+				</div>
+								
+				
 		
 			</fieldset>
 
@@ -110,6 +115,8 @@
 						</div>
 						
 			</div>
+			
+			{% endif %}
 		
 	</form>	
 </div>
