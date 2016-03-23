@@ -46,7 +46,11 @@
 								<td class="time text-center">{{ ride.travelling_time }}</td>
 								<td class="cost text-right">{{ ride.cost }}</td>
 								<td class="seatsAvailable text-center">{{ ride.seatsAvailable }}</td>
-								<td class="viewride btn-link"> <a href= "/viewRide/">View Ride Details</a></td>
+							<td>
+								<form name="book_form" method="get" action="{% url 'search:get_ride_detail' ride.journey %}">
+									<input class="viewride btn-link" type="submit" name="submit" value="View Ride Details" />
+								</form>
+							</td>
 							</tr>
 					{% endfor %}
 				</tbody>

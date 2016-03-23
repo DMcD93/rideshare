@@ -148,8 +148,6 @@ def post_ride(request):
 			# Attempt to grab information from the raw form information.
 			# Note that we make use of both UserForm and UserProfileForm.
 			journey_form = JourneyForm(data=request.POST)
-
-			print request.user
 			
 			try:
 				vehicle = Vehicle.objects.get(user__username=request.user)
@@ -160,6 +158,7 @@ def post_ride(request):
 			if journey_form.is_valid():
 				# Save the user's form data to the database.
 				journey = journey_form.save(commit=False)
+				journey.user = vehicle
 				journey.save()
 				
 				p = Passanger.objects.create(journey=journey)
@@ -290,7 +289,8 @@ def get_ride_detail(request, journey):
 	vehicle_detail = Vehicle.objects.filter(user__username=user)"""
 	
 	journey_info = Journey.objects.get(pk=journey)
-	driver_info = User.objects.get(username=journey_info.user)
+	user_info = User.objects.get(username=journey_info.user)
+	driver_info = Users_Reg.objects.get(user__username=journey_info.user)
 	vehicle_info = Vehicle.objects.get(user__username=journey_info.user)
 	review_list = Review.objects.filter(user__username = request.user)
 	
@@ -313,7 +313,7 @@ def get_ride_detail(request, journey):
 	else:
 		return render(request, 'rideshare/login.html')
 		
-	context_dict = {'review_form': review_form, 'journey': journey_info, 'driver': driver_info, 'vehicle': vehicle_info, 'review_list': review_list}
+	context_dict = {'review_form': review_form, 'journey': journey_info, 'user': user_info, 'driver': driver_info, 'vehicle': vehicle_info, 'review_list': review_list}
     
 	return render(request, 'rideshare/rideDetail.html', context_dict)
 	'''{'driver_detail':driver_detail, 'journey_detail':journey_detail, 

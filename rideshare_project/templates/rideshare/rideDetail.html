@@ -17,7 +17,7 @@
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Driver Name</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ driver.first_name}} {{ driver.last_name }}</label>
+							<label class="col-lg-2 control-label">{{ user.first_name}} {{ user.last_name }}</label>
 						</div>
 				</div>
 				
@@ -30,7 +30,7 @@
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Driver's Email</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ driver.email }}</label>
+							<label class="col-lg-2 control-label">{{ user.email }}</label>
 						</div>
 				</div>		
 				<div class="form-group">
@@ -109,7 +109,7 @@
 				{% else %}
 				
 						{% for review in review_list %}
-								</br><a>{{ user.username  }} posted on: {{ review.posted_at }}<a></br></br>
+								</br><a>{{ review.posted_by  }} posted on: {{ review.posted_at }}<a></br></br>
 								<Textarea class="text" cols="35" rows="3">{{ review.description }}</Textarea>
 							{% empty %}
 								<Textarea class="text" cols="35" rows="3" placeholder="No reviews posted yet"></Textarea>					
