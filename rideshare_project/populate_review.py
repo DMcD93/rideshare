@@ -19,6 +19,18 @@ def populate():
 	description='This should work!!',
 	posted_by='monica',
 	posted_at=timezone.now())
+
+	user_two = add_user(username='test',
+	password='test',
+	email='harry@abc.com',
+	first_name='Harry',
+	last_name='Potter')
+
+
+	add_review(user=user_two,
+	description='This should work!!',
+	posted_by='urmila',
+	posted_at=timezone.now())
 	
 	add_review(user=user_one,
 	description='This better work.',

@@ -14,15 +14,15 @@
 {% block body_block %}
 <div class="jumbotron">
 	<form class="form-horizontal" id="user_form" enctype="multipart/form-data">
-
+		<div class="pull-right">
+					<!---a href="/ridesposted/" class="btn btn-lg btn-primary">View Rides Posted</a></br></br--->
+					<a class="btn" href="/ridesPosted/">View Rides Posted</a><p></p>
+					<a class="btn" href="/ridesRequested/">View Rides Requested</a><p></p>
+					<a class="btn" href="/addVehicle/">Add Vehicle</a>
+				</div>
 		<fieldset>
 			<legend>Profile Information</legend>
-				<div class=" nav navbar-nav navbar-right">
-					<!---a href="/ridesposted/" class="btn btn-lg btn-primary">View Rides Posted</a></br></br--->
-					<a href="/ridesPosted/">View Rides Posted</a>
-					<a href="/ridesRequested/">View Rides Requested</a><p>
-					<a href="/addVehicle/">Add Vehicle</a>
-				</div>
+
 			
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Username</label>
@@ -73,23 +73,26 @@
 			</fieldset>
 
 			<div class="form-group">
-					<!---form id="review_form" method="post" action="/rideshare/profile/" enctype="multipart/form-data"--->				
+					<!---form id="review_form" method="post" action="/rideshare/profile/" enctype="multipart/form-data"--->
 						<label class="col-lg-2 control-label">Reviews</label>
 						<div class="col-lg-3">
-						
+
 							{% for review in review_list %}
-							
-							</br><a>{{ review.posted_by }} posted on: {{ review.posted_at }}<a></br></br>
-							<Textarea disabled class="text" cols="35" rows="3">{{ review.description }}</Textarea>
-							
+
+
+							<blockquote>
+							  <p>{{ review.description }}</p>
+							  <small>	{{ review.posted_by }} posted on: {{ review.posted_at }}</small>
+							</blockquote>
+
 							{% empty %}
 								<Textarea disabled class="text" cols="35" rows="3">No reviews posted yet</Textarea>
 							{% endfor %}
 						</div>
-						
+
 			</div>
-		
-	</form>	
+
+	</form>
 </div>
 
 {% endblock %}
