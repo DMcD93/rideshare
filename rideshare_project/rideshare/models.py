@@ -14,9 +14,13 @@ class Users_Reg(models.Model):
 
     user = models.OneToOneField(User)
 
-    phone = models.BigIntegerField()
-    age = models.IntegerField(null=True)
-    identity_number = models.CharField(max_length=30)
+    phone = models.BigIntegerField(validators=[MaxValueValidator(99999999999)])
+    age = models.IntegerField(null=True, default=18,
+        validators=[
+            MaxValueValidator(80),
+            MinValueValidator(16)
+        ])
+    identity_number = models.CharField(max_length=8)
 		
     # Override the __unicode__() method to return out something meaningful!
     def __unicode__(self):
@@ -62,7 +66,7 @@ class Journey(models.Model):
             MaxValueValidator(50),
             MinValueValidator(0)
         ])
-    user = models.ManyToManyField(Vehicle, related_name='driver')
+    user = models.ForeignKey(Vehicle, related_name='driver', null=True)
 
     class Meta:
         db_table = "journey"

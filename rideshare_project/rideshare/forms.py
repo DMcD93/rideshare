@@ -44,10 +44,10 @@ class VehicleForm(forms.ModelForm):
 		model = Vehicle
 		fields = ('reg_no', 'make', 'model')
 		
-class SeatForm(forms.ModelForm):
+class SearchForm(forms.ModelForm):
 	class Meta:
-		model = Passanger
-		fields = ('front',)
+		model = Journey
+		fields = ('departure', 'destination')
 		
 class ReviewForm(forms.ModelForm):
 	class Meta:

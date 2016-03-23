@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% extends 'rideshare/base.html' %}
-
+{% load staticfiles %}
 <html>
 
     <head>
@@ -13,13 +13,23 @@
 		<div class="jumbotron">
 		  <h1>Welcome to RideShare!</h1>
 		  <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-		  <p><a class="btn btn-primary btn-lg" href="/search_ride/">Search for a Ride</a>
-		  <a class="btn btn-primary btn-lg" href="/post_ride/">Post a Ride</a></p>
+			{% if user.is_authenticated %}
+				<form id="search_form" class="form-horizontal" method="post" action="/"
+						enctype="multipart/form-data">
+						{% csrf_token %}
+						{{ search_form }}
+						<input type="submit" name="submit" value="Search" />
+				</form>
+			  <p><a class="btn btn-primary btn-lg" href="/search_ride/">Search for a Ride</a>
+			  <a class="btn btn-primary btn-lg" href="/post_ride/">Post a Ride</a></p>
+		  {% else %}
+				<p><a class="btn btn-primary btn-lg" href="/search_ride/">Search for a Ride</a>
+				<a class="btn btn-primary btn-lg" href="/post_ride/">Post a Ride</a></p>
+		  {% endif %}
 		</div>
+	<script type="text/javascript" src="{% static 'rideshare/autocompleteAPI.js' %}"></script>
+	<script type="text/javascript" src="{% static 'rideshare/autocomplete.js' %}"></script>	
 	{% endblock %}
     </body>
 
 </html>
-
-
-

@@ -9,19 +9,21 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('rideshare', '0029_auto_20160320_0027'),
+        ('rideshare', '0002_auto_20160322_2356'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Passangers',
+            name='Review',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('journey', models.ForeignKey(to='rideshare.Journey')),
-                ('user', models.ManyToManyField(related_name=b'backRight', to=settings.AUTH_USER_MODEL)),
+                ('description', models.TextField(max_length=150, null=True)),
+                ('posted_at', models.DateTimeField()),
+                ('posted_by', models.TextField(max_length=30, null=True)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'db_table': 'passanger',
+                'db_table': 'review',
             },
             bases=(models.Model,),
         ),

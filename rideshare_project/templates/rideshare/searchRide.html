@@ -52,27 +52,17 @@
 								<td class="cost text-right">{{ journey.cost }}</td>
 								<td class="seatsAvailable text-center">{{ journey.seatsAvailable }}</td>
 								<td>
-									<form name="book_form" method="post" action="{% url 'search:bookSeat' journey.journey %}">
-										{% csrf_token %}
-										<input class="btn btn-success" type="submit" name="submit" value="Book" />
-									</form>
-								</td> 
-							</td>
-							{% endif %}
-							
-								<td class="viewride btn-link"> <a href= "/viewRide/">View Ride Details</a></td>
-								</tr>
-									{% if passangers %}
+								{% if passangers %}
 										{% for passanger in passangers %}
 											{% ifequal journey.journey passanger.journey.journey %}
-												{% ifnotequal journey.user.get|stringformat:"s" user.get_username  %}
-													{% ifnotequal passanger.front|stringformat:"s" user.get_username  %}
-														{% ifnotequal passanger.backLeft|stringformat:"s" user.get_username  %}
-															{% ifnotequal passanger.backRight|stringformat:"s" user.get_username  %}
+												{% ifnotequal journey.user|stringformat:"s" user.get_username %}
+													{% ifnotequal passanger.front|stringformat:"s" user.get_username %}
+														{% ifnotequal passanger.backLeft|stringformat:"s" user.get_username %}
+															{% ifnotequal passanger.backRight|stringformat:"s" user.get_username %}
 																<td>
 																	<form name="book_form" method="post" action="{% url 'search:bookSeat' journey.journey %}">
 																		{% csrf_token %}
-																		<input type="submit" name="submit" value="Book" />
+																		<input class="btn btn-success" type="submit" name="submit" value="Book" />
 																	</form>
 																	</td>
 																</td>
@@ -83,8 +73,14 @@
 											{% endifequal %}
 										{% endfor %}
 									{% endif %}
-								</tr>
-
+								</td> 
+							</td>
+							<td>
+								<form name="book_form" method="get" action="{% url 'search:get_ride_detail' journey.journey %}">
+									<input class="viewride btn-link" type="submit" name="submit" value="View Ride Details" />
+								</form>
+							</td>
+						{% endif %}	
 					{% endfor %}
 				</tbody>
 				
