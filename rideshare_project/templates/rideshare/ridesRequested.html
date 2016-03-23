@@ -5,51 +5,65 @@
 <head>
     <meta charset="UTF-8">
     <title>Rides requested </title>
-    <link rel="stylesheet" href="../../static/CSS/style.css" />	
-	
-	<script src="http://malsup.github.com/jquery.form.js"></script>
+    <link rel="stylesheet" href="../../static/CSS/style.css"/>
+
+    <script src="http://malsup.github.com/jquery.form.js"></script>
 </head>
 
 <body>
 {% block body_block %}
-<div class="jumbotron">	
+<div class="jumbotron">
 
-	
-		<table class="table table-bordered table-hovered "cellspacing='0'>
-		<!---	{% if journeys %}--->
-				<div id="journey">
-					
-						<tbody class="list">
-						<tr>
-							<th><label class="sort">Departure </label></th>
-							<th><label class="sort">Destination </label></th>
-							<th><label class="sort">Date </label></th>
-							<th><label class="sort">Time </label></th>
-							<th><label class="sort">Cost </label></th>
-							<!---th><label class="sort" data-sort="seatsAvailable">Seats </label></th--->
-						</tr>
-					</br>
-					</br>
-						{% for ride in rides %}
-							<tr>
-								<td class="departure">{{ ride.departure }}</td>
-								<td class="destination">{{ ride.destination }}</td>
-								<td class="date">{{ ride.travelling_date }}</td>
-								<td class="time">{{ ride.travelling_time }}</td>
-								<td class="return">{{ ride.cost }}</td>
-								</br>
-							</tr>
-						{% endfor %}
-						
-				{% else %}
-					<strong>There are no rides posted.</strong>
-					</tbody>
-					</table>
-				</div>
-			<---{% endif %}--->
-			
-	</div>
 
-{% endblock %}
+    <table class="table table-bordered table-hovered " cellspacing='0'>
+        <!---	{% if journeys %}--->
+        <div id="journey">
+
+            <thead class="list">
+            <tr>
+                <th class="active">Departure
+                    <button class="btn sort glyphicon-sort pull-right" data-sort="departure"></button>
+                </th>
+                <th class="active">Destination
+                    <button class="btn sort glyphicon-sort pull-right" data-sort="destination"></button>
+                </th>
+                <th class="active">Date
+                    <button class="btn sort glyphicon-sort pull-right" data-sort="date"></button>
+                </th>
+                <th class="active">Time
+                    <button class="btn sort glyphicon-sort pull-right" data-sort="time"></button>
+                </th>
+                <th class="active">Cost (£)
+                    <button class="btn sort glyphicon-sort pull-right" data-sort="cost"></button>
+                </th>
+
+                <!---th><label class="sort" data-sort="seatsAvailable">Seats </label></th--->
+            </tr>
+            </thead>
+            </br>
+            </br>
+            <tbody>
+            {% for ride in rides %}
+            <tr>
+                <td class="departure ">{{ ride.departure }}</td>
+                <td class="destination">{{ ride.destination }}</td>
+                <td class="date text-center">{{ ride.travelling_date }}</td>
+                <td class="time text-center">{{ ride.travelling_time }}</td>
+                <td class="return text-right">{{ ride.cost }}</td>
+
+                </br>
+            </tr>
+            {% empty %}
+
+            <p> There are no rides posted by you </p>
+
+            {% endfor %}
+
+            {% else %}
+            <strong>There are no rides posted.</strong>
+            </tbody>
+        </div>
+
+        {% endblock %}
 </body>
 </html>

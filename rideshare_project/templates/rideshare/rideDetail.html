@@ -116,11 +116,14 @@
 						<div class="col-lg-3">
 							{% for review in review_list %}
 							
-							</br><a>{{ user.username  }} posted on: {{ review.posted_at }}<a></br></br>
-							<Textarea disabled class="text" cols="35" rows="3">{{ review.description }}</Textarea>
+
+							<blockquote>
+							  <p>{{ review.description }}</p>
+							  <small>	{{ review.posted_by }} posted on: {{ review.posted_at }}</small>
+							</blockquote>
+
 							{% empty %}
 								<Textarea disabled class="text" cols="35" rows="3">No reviews posted yet</Textarea>
-						
 							{% endfor %}
 						</div></br>
 											
