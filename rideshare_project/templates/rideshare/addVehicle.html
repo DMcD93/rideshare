@@ -7,25 +7,51 @@
     <title>Add a Vehicle</title>
 </head>
 <body>
-	<h1>Add a new journey</h1>
-	{% block body_block %}
-	
-	{% if successful %}#
-				Rideshare says: <strong>thank you for adding a vehicle!</strong>
-				<a href="/">Return to the homepage.</a><br />
-	{% else %}
-	<form id="journey_form" class="form-horizontal" method="post" action="/add_vehicle/"
-					enctype="multipart/form-data">
-		  
-		  {% csrf_token %}
-		  
-		  {{ vehicle_form.as_p }}
-		  
-		  <input type="submit" name="submit" value="Add Vehicle" />
+<h1>Add a new journey</h1>
+{% block body_block %}
 
-		</fieldset>
-	</form>
-	{% endif %}
-	{% endblock %}
+{% if successful %}#
+Rideshare says: <strong>thank you for adding a vehicle!</strong>
+<a href="/">Return to the homepage.</a><br/>
+{% else %}
+<div class="jumbotron">
+
+    <form id="journey_form" class="form-horizontal" method="post" action="/add_vehicle/"
+          enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {% for field in vehicle_form %}
+        <fieldset class="form-group">
+            <label class="col-lg-2 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+            <div class="col-lg-8">
+                {% if field.errors %}
+                <div class="form-group has-error">
+                    {% endif %}
+                    <input type="{{ field.field.widget.input_type }}" class="form-control"
+                           name="{{ field.name }}"
+                           id="id_{{ field.name }}"
+                           placeholder="{{ field.name }}"
+                           size="50">
+                    <span class="help-block">{{ field.help_text }} </span>
+                    {% if field.errors %}
+                    <label class="control-label" for="id_{{ field.name }}"> {{ field.errors }}
+                    </label>
+
+                </div>
+                {% endif %}
+
+            </div>
+        </fieldset>
+        {% endfor %}
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+
+                <input type="submit" class="btn btn-primary" name="submit" value="Add Vehicle"/>
+            </div>
+        </div>
+    </form>
+</div>
+{% endif %}
+{% endblock %}
 </body>
 </html>
