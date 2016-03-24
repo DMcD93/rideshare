@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% extends 'rideshare/base.html' %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rides Posted</title>
+    <link rel="stylesheet" href="../../static/CSS/style.css" />	
+</head>
+
+<body>
+{% block body_block %}
+<h1>Posted Rides</h1>
+{% if rides %}
+	<div id="journey">
+			<table class="table table-striped table-hover ">
+				<tr>
+					<input class="search form-control" placeholder="Search" size="50" />
+					<td><input type="checkbox" id="todaysRides">Todays Rides</input></td>
+					<td><input type="checkbox" id="cheapRides">Rides under < £5</input></td>				
+					<td><input type="checkbox" id="seatNo">Rides with 1+ seats</input></td>
+				</tr>
+				<td>
+					 &nbsp;
+				</td>
+			</table>
+			<table class="table table-striped table-hover ">
+				<thead>
+				    <tr>
+						<th class="active">Departure <button class="btn sort glyphicon-sort pull-right" data-sort="departure"></button></th>
+						<th class="active">Destination <button class="btn sort glyphicon-sort pull-right" data-sort="destination"> </button></th>
+						<th class="active">Date <button class="btn sort glyphicon-sort pull-right" data-sort="date"> </button></th>
+						<th class="active">Time <button class="btn sort glyphicon-sort pull-right" data-sort="time"></button></th>
+						<th class="active">Cost <button class="btn sort glyphicon-sort pull-right" data-sort="cost"></button> </th>
+						<th class="active">Seats <button class="btn sort glyphicon-sort pull-right" data-sort="seatsAvailable"></button> </th>
+						<th class="active"></th>
+						<th class="active"></th>
+				    </tr>
+				</thead>
+				<tbody class="list">
+					{% for ride in rides %}
+							<tr>
+								<td class="departure ">{{ ride.departure }}</td>
+								<td class="destination">{{ ride.destination }}</td>
+								<td class="date text-center">{{ ride.travelling_date }}</td>
+								<td class="time text-center">{{ ride.travelling_time }}</td>
+								<td class="cost text-right">{{ ride.cost }}</td>
+								<td class="seatsAvailable text-center">{{ ride.seatsAvailable }}</td>
+							<td>
+								<form name="book_form" method="get" action="{% url 'search:get_ride_detail' ride.journey %}">
+									<input class="viewride btn-link" type="submit" name="submit" value="View Ride Details" />
+								</form>
+							</td>
+							</tr>
+					{% endfor %}
+				</tbody>
+				
+			</table>
+{% else %}
+	<strong>You have posted no journeys.</strong>
+	<a href="/">Return to the homepage.</a><br />
+{% endif %}
+	</div>
+
+{% endblock %}
+</body>
+</html>

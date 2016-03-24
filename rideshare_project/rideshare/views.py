@@ -1,15 +1,40 @@
 # Create your views here.
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
-from rideshare.forms import UserForm, UserRegForm, JourneyForm, VehicleForm
+from django.shortcuts import render, get_object_or_404
+from rideshare.forms import UserForm, UserRegForm, JourneyForm, VehicleForm, ReviewForm, SearchForm
 #from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from rideshare.models import Journey, Vehicle
+from rideshare.models import Journey, Vehicle, Passanger, User, Review, Users_Reg
+from django.core.urlresolvers import reverse
+from django.views import generic
+import datetime
 
 def main(request):
-	return render(request, 'rideshare/main.html')	
+	if request.user.is_authenticated():
+		if request.method == 'POST':
+			search_form = SearchForm(data=request.POST)
+			if search_form.is_valid():
+				departure = request.POST.get('departure')
+				departure = departure.split(',')
+				
+				destination = request.POST.get('destination')
+				destination = destination.split(',')			
+
+				journey_list = Journey.objects.filter(departure=departure[0], destination=destination[0])
+				passanger_list = Passanger.objects.all()
+				context_dict = {'journeys': journey_list, 'passangers': passanger_list}
+
+				return render(request, 'rideshare/searchRide.html', context_dict)	
+			else:
+				print search_form.errors
+		else:
+			search_form = SearchForm()
+	else:
+		return render(request, 'rideshare/main.html')
+
+	return render(request, 'rideshare/main.html', {'search_form': search_form})
 #    return HttpResponse("This is the main page")
 
 def user_login(request):
@@ -27,7 +52,7 @@ def user_login(request):
         # Use Django's machinery to attempt to see if the username/password
         # combination is valid - a User object is returned if it is.
         user = authenticate(username=username, password=password)
-
+        #request.session['username_session']=user.username
         # If we have a User object, the details are correct.
         # If None (Python's way of representing the absence of a value), no user
         # with matching credentials was found.
@@ -37,7 +62,7 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                return HttpResponseRedirect('/rideshare/')
+                return HttpResponseRedirect('/')
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your rideshare account is disabled.")
@@ -60,7 +85,7 @@ def user_logout(request):
     logout(request)
 
     # Take the user back to the homepage.
-    return HttpResponseRedirect('/rideshare/')
+    return HttpResponseRedirect('/')
 
 def register(request):
 
@@ -112,7 +137,7 @@ def register(request):
     # Render the template depending on the context.
     return render(request,
             'rideshare/registration.html',
-            {'user_form': user_form, 'reg_form': reg_form, 'registered': registered} )
+            {'user_form': user_form, 'reg_form': reg_form, 'registered': registered})
 
 def post_ride(request):
 	successful = False
@@ -123,12 +148,21 @@ def post_ride(request):
 			# Attempt to grab information from the raw form information.
 			# Note that we make use of both UserForm and UserProfileForm.
 			journey_form = JourneyForm(data=request.POST)
-
+			
+			try:
+				vehicle = Vehicle.objects.get(user__username=request.user)
+			except Exception as e:
+				 return HttpResponseRedirect('/add_vehicle')
+		
 			# If the two forms are valid...
 			if journey_form.is_valid():
 				# Save the user's form data to the database.
-				journey = journey_form.save()
+				journey = journey_form.save(commit=False)
+				journey.user = vehicle
+				journey.save()
 				
+				p = Passanger.objects.create(journey=journey)
+				p.save()
 				successful = True
 
 			# Invalid form or forms - mistakes or something else?
@@ -148,16 +182,17 @@ def post_ride(request):
 				{'journey_form': journey_form, 'successful': successful} )
 				
 	else:
-		 return HttpResponseRedirect('/rideshare/login')
+		 return HttpResponseRedirect('/login')
 	
 def search_ride(request):
 	if request.user.is_authenticated():
-		journey_list = Journey.objects.order_by('-travelling_date', 'travelling_time')
-		context_dict = {'journeys': journey_list}
+		journey_list = Journey.objects.order_by('travelling_date', 'travelling_time', 'cost')
+		passanger_list = Passanger.objects.all()
+		context_dict = {'journeys': journey_list, 'passangers': passanger_list}
 
 		return render(request, 'rideshare/searchRide.html', context_dict)	
 	else:
-		 return HttpResponseRedirect('/rideshare/login')
+		 return HttpResponseRedirect('/login')
 		 
 def add_vehicle(request):
 	successful = False
@@ -178,7 +213,7 @@ def add_vehicle(request):
 				successful = True
 
 			# Invalid form or forms - mistakes or something else?
-			# Print problems to the terminal.
+			# Print problems to the terminal.3
 			# They'll also be shown to the user.
 			else:
 				print vehicle_form.errors
@@ -194,4 +229,92 @@ def add_vehicle(request):
 				{'vehicle_form': vehicle_form, 'successful': successful} )
 				
 	else:
-		 return HttpResponseRedirect('/rideshare/login')
+		 return HttpResponseRedirect('/login')
+		 
+def bookSeat(request, journey):
+	p = Passanger.objects.get(journey=journey)
+	q = Journey.objects.get(pk=journey)
+	if p.front is None:
+		p.front=request.user
+		p.save()
+		q.seatsAvailable -= 1
+		q.save()
+	elif p.backLeft is None:
+		p.backLeft=request.user
+		p.save()
+		q.seatsAvailable -= 1
+		q.save()
+	else:
+		p.backRight=request.user
+		p.save()
+		q.seatsAvailable -= 1
+		q.save()
+	return HttpResponseRedirect(reverse('search:search_ride'))
+# Create your views here.
+
+@login_required	 
+def get_user_profile(request):
+	profile_info = Users_Reg.objects.get(user__username = request.user)
+	
+	exists = False
+	
+	try:
+		vehicle_list = Vehicle.objects.get(user__username = request.user)
+		print request.user
+		print vehicle_list
+		if not vehicle_list is None:
+			review_list = Review.objects.filter(user__username = request.user)
+			exists = True
+			return render(request, 'rideshare/profile.html', {'profile': request.user, 'profile_info': profile_info, 'vehicle': vehicle_list,
+					'review_list':review_list, 'exists': exists})
+	except:
+		return render(request, 'rideshare/profile.html', {'profile': request.user, 'profile_info': profile_info, 'exists': exists})
+
+
+@login_required				
+def ridesposted(request):
+	ride_list = Journey.objects.filter(user = request.user)
+				
+	context_dict = {'rides': ride_list}
+
+	return render(request, 'rideshare/ridesPosted.html', context_dict)	
+	
+@login_required
+def get_ride_detail(request, journey):
+	posted = False
+	"""
+	journey_detail = Journey.objects.filter(journey_id)
+	driver_detail = Users_Reg.objects.filter(journey_detail.user)
+	
+	vehicle_detail = Vehicle.objects.filter(user__username=user)"""
+	
+	journey_info = Journey.objects.get(pk=journey)
+	user_info = User.objects.get(username=journey_info.user)
+	driver_info = Users_Reg.objects.get(user__username=journey_info.user)
+	vehicle_info = Vehicle.objects.get(user__username=journey_info.user)
+	review_list = Review.objects.filter(user__username = request.user)
+	
+	if request.user.is_authenticated():
+		if request.method == 'POST':	
+			review_form = ReviewForm(data=request.POST)
+			print "test1"
+			if review_form.is_valid():
+				review = review_form.save(commit = False)
+				review.user = driver_info.user
+				review.posted_by = request.user.username
+				review.posted_for = journey_info.user
+				review.posted_at = datetime.datetime.now().replace(microsecond=0)
+				review.save()
+				posted = True
+			else:
+				review_form.errors
+		else:
+			review_form = ReviewForm()
+	else:
+		return render(request, 'rideshare/login.html')
+		
+	context_dict = {'review_form': review_form, 'journey': journey_info, 'user': user_info, 'driver': driver_info, 'vehicle': vehicle_info, 'review_list': review_list}
+    
+	return render(request, 'rideshare/rideDetail.html', context_dict)
+	'''{'driver_detail':driver_detail, 'journey_detail':journey_detail, 
+				'vehicle_detail':vehicle_detail, 'review_form':review_form, 'posted':posted})'''

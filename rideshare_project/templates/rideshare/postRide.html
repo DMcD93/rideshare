@@ -7,16 +7,18 @@
     <title>Journey Details</title>
 </head>
 <body>
+
 	{% block body_block %}
 	
-	{% if successful %}#
+	{% if successful %}
 	        <div class="jumbotron">
 
               <p>Thank you for posting! We are very happy to serve you.</p>
-              <p><a href="/rideshare/" class="btn btn-primary">Return to the homepage</a></p>
+              <p><a href="/" class="btn btn-primary">Return to the homepage</a></p>
             </div>
 	{% else %}
 <div class="jumbotron">
+    <h3>Add a new journey</h3>
 	<form id="journey_form" class="form-horizontal" method="post" action="/post_ride/"
 					enctype="multipart/form-data">
 		  

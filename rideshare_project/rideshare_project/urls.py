@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rideshare import views
+from rideshare import urls
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -15,9 +16,14 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-	url(r'^', include('rideshare.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-	url(r'^search_ride', views.search_ride, name='search_ride'),
+	url(r'^$', views.main, name='main'),
+	url(r'^admin/', include(admin.site.urls)),
+	url(r'^search_ride/', include('rideshare.urls', namespace="search")),
 	url(r'^post_ride', views.post_ride, name='post_ride'),
 	url(r'^add_vehicle', views.add_vehicle, name='add_vehicle'),
+	url(r'^logout/$', views.user_logout, name='logout'),
+	url(r'^registration/$', views.register, name='register'),
+	url(r'^login/$', views.user_login, name='login'),
+	url(r'^profile/$', views.get_user_profile, name='profile'),
+	url(r'^ridesPosted/$', views.ridesposted, name='userPosted'),
 )

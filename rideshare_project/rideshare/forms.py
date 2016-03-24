@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from rideshare.models import Users_Reg, Journey, Vehicle
+from rideshare.models import Users_Reg, Journey, Vehicle, Passanger, Review
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -23,13 +23,36 @@ class UserRegForm(forms.ModelForm):
 class JourneyForm(forms.ModelForm):
 	class Meta:
 		model = Journey
-		fields = ('departure', 'destination', 'travelling_date', 'travelling_time', 'is_return')
+		fields = ('departure', 'destination', 'travelling_date', 'travelling_time', 'cost', 'seatsAvailable')
 		widgets = {
             'travelling_date': DateInput(),
 			'travelling_time': TimeInput()
         }
 		
+	def clean_departure(self):
+	    departure = self.cleaned_data['departure']
+	    departure = departure.split(',')
+	    return departure[0]
+		
+	def clean_destination(self):
+	    destination = self.cleaned_data['destination']
+	    destination = destination.split(',')
+	    return destination[0]
+		
 class VehicleForm(forms.ModelForm):
 	class Meta:
 		model = Vehicle
-		fields = ('reg_no', 'make', 'model', 'no_of_seats')
+		fields = ('reg_no', 'make', 'model')
+		
+class SearchForm(forms.ModelForm):
+	class Meta:
+		model = Journey
+		fields = ('departure', 'destination')
+		
+class ReviewForm(forms.ModelForm):
+	class Meta:
+		model = Review
+		fields = ('description',)
+		widgets = {
+					'description': forms.Textarea(attrs={'cols':35, 'rows':3})
+		}

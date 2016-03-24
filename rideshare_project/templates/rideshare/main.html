@@ -1,25 +1,74 @@
 <!DOCTYPE html>
 {% extends 'rideshare/base.html' %}
-
+{% load static %}
 <html>
 
-    <head>
-        <title>RideShare</title>
-    </head>
+<head>
+    <title>RideShare</title>
+</head>
 
-    <body>
-	
-	{% block body_block %}
-		<div class="jumbotron">
-		  <h1>Welcome to RideShare!</h1>
-		  <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-		  <p><a class="btn btn-primary btn-lg" href="/search_ride/">Search for a Ride</a>
-		  <a class="btn btn-primary btn-lg" href="/post_ride/">Post a Ride</a></p>
-		</div>
-	{% endblock %}
-    </body>
+<body>
+
+{% block body_block %}
+<div class="content">
+
+    <img class="col-xs-6 col-sm-4 col-md-12 in" src="{% static 'images/car4.jpg' %}" alt="Picture of Car"/>
+    <div style="position: absolute; right: 75px; top: 100px">
+            <H1 class="text-muted">Wheels When You Want Them</H1>
+            <p>
+            <H1 class="text-muted pull-right">Welcome to Rideshare</H1>
+    </div>
+    <div style="position: absolute; right: 75px; top: 300px">
+
+        <div >
+            {% if user.is_authenticated %}
+            <form id="search_form" class="form-horizontal" method="post" action="/"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in search_form %}
+                <fieldset class="form-group">
+                    <label class="col-lg-2 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                    <div class="col-lg-8">
+                        {% if field.errors %}
+                        <div class="form-group has-error">
+                            {% endif %}
+                            <input type="{{ field.field.widget.input_type }}" class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   placeholder="{{ field.name }}"
+                                   size="50">
+                            <span class="help-block">{{ field.help_text }} </span>
+                            {% if field.errors %}
+                            <label class="control-label" for="id_{{ field.name }}"> {{ field.errors }}
+                            </label>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+                </fieldset>
+                {% endfor %}
+                          <div class="pull-right">
+           <input type="submit" class="btn btn-info btn-lg" name="submit" value="Search"/>
+            <a type="submit"  class="btn btn-primary btn-lg" href="/search_ride/">Search a Ride</a>
+            <a type="submit"  class="btn btn-success btn-lg" href="/post_ride/">Post a Ride</a>
+        </div>
+
+                {% else %}
+                          <div class="pull-right">
+            <a type="submit"  class="btn btn-primary btn-lg" href="/search_ride/">Search a Ride</a>
+            <a type="submit"  class="btn btn-success btn-lg" href="/post_ride/">Post a Ride</a>
+        </div>
+
+            </form>
+            {% endif %}
+        </div>
+
+    </div>
+    <script type="text/javascript" src="{% static 'rideshare/autocompleteAPI.js' %}"></script>
+    <script type="text/javascript" src="{% static 'rideshare/autocomplete.js' %}"></script>
+    {% endblock %}
+</body>
 
 </html>
-
-
-

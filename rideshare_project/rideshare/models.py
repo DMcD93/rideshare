@@ -14,9 +14,13 @@ class Users_Reg(models.Model):
 
     user = models.OneToOneField(User)
 
-    phone = models.BigIntegerField()
-    age = models.IntegerField(null=True)
-    identity_number = models.CharField(max_length=30)
+    phone = models.BigIntegerField(validators=[MaxValueValidator(99999999999)])
+    age = models.IntegerField(null=True, default=18,
+        validators=[
+            MaxValueValidator(80),
+            MinValueValidator(16)
+        ])
+    identity_number = models.CharField(max_length=8)
 		
     # Override the __unicode__() method to return out something meaningful!
     def __unicode__(self):
@@ -34,63 +38,66 @@ class Vehicle(models.Model):
     reg_no = models.CharField(max_length=8)
     make = models.CharField(max_length=30)
     model = models.CharField(max_length=30)
-    no_of_seats = models.SmallIntegerField(default=1,
-        validators=[
-            MaxValueValidator(12),
-            MinValueValidator(1)
-        ])
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, primary_key=True)
 
     class Meta:
         db_table = "vehicle"
+		
+    def __unicode__(self):
+        return self.user.username
 
 
 class Journey(models.Model):
     """
     Creating database to store user journey details
     """
+    journey = models.AutoField(primary_key=True)
     departure = models.CharField(max_length=100)
     destination = models.CharField(max_length=100)
     travelling_date = models.DateField(null = True)
     travelling_time = models.TimeField(null = True)
-    is_return = models.BooleanField(default=False)
-	#cost = models.DecimalField(max_digits=2, decimal_places=2), null=True)
-    #user = models.ManyToManyField(User)
-	#vehicle = user = models.ForeignKey(Vehicle)
+    seatsAvailable = models.IntegerField(default=1,
+        validators=[
+            MaxValueValidator(3),
+            MinValueValidator(0)
+        ])
+    cost = models.IntegerField(
+        validators=[
+            MaxValueValidator(50),
+            MinValueValidator(0)
+        ])
+    user = models.ForeignKey(Vehicle, related_name='driver', null=True)
 
     class Meta:
         db_table = "journey"
 
+    def __str__(self):
+        return 'Journey: %s' % + self.pk
+		
+class Passanger(models.Model):
+    front = models.ForeignKey(User, related_name='front', null=True)
+    backLeft = models.ForeignKey(User, related_name='backLeft', null=True)
+    backRight = models.ForeignKey(User, related_name='backRight', null=True)
+    journey = models.ForeignKey(Journey, primary_key=True)
 
+    class Meta:
+        db_table = "passanger"
+        """ unique_together = (('front', 'backLeft'), ('front', 'backRight'), ('backLeft', 'backRight'), ('front', 'backLeft', 'backRight'))"""
+		
+    def __str__(self):
+        return 'Passangers for Journey: %s' % + self.pk
+		
 class Review(models.Model):
     """
     Creating database to store reviews from passengers
     """
-    description = models.TextField()
+    description = models.TextField(max_length=150, null=True)
     posted_at = models.DateTimeField()
+    posted_by = models.TextField(max_length=30, null=True)
     user = models.ForeignKey(User)
 
     class Meta:
         db_table = "review"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		
+    def __str__(self):
+        return 'Review: %s' % + self.pk

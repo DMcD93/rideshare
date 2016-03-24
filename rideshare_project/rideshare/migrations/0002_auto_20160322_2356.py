@@ -7,13 +7,15 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rideshare', '0005_auto_20160316_1721'),
+        ('rideshare', '0001_initial'),
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='users_reg',
-            old_name='users',
-            new_name='user',
+        migrations.RemoveField(
+            model_name='review',
+            name='user',
+        ),
+        migrations.DeleteModel(
+            name='Review',
         ),
     ]

@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 {% extends 'rideshare/base.html' %}
 
-<html xmlns="http://www.w3.org/1999/html">
-<head>
-    <title>User Registration Details</title>
-    <link rel="stylesheet" href="../../static/CSS/style.css"/>
-</head>
+<html>
+    <head>
+        <title>User Registration Details</title>
 
-<body>
-<h1>Register with Rango</h1>
+    </head>
 
-{% block body_block %}
+    <body>
+        <h1>Register with Rango</h1>
+		{% block body_block %}
 			{% if registered %}
-        <div class="jumbotron">
-
-            <h1>Thank you for registering!</h1>
+		<div class="jumbotron">
+			<h1>Thank you for registering!</h1>
               <p>We are very happy to serve you, Hope you find your ride.</p>
-              <p><a href="/login/" class="btn btn-primary">Login</a></p>
-            </div>
+
+
+				<a href="/">Return to the homepage.</a><br />
+			</div>
 			{% else %}
-            <div class="jumbotron">
-            <form id="user_form" method="post" action="/rideshare/registration/"
-                  enctype="multipart/form-data" class="form-horizontal">
+			<div class="jumbotron">
+				<h2>Please Register</h2>
+			<form id="user_form" method="post" class="form-horizontal" action="/registration/"
+					enctype="multipart/form-data">
 
                 {% csrf_token %}
                 {% for field in user_form %}
