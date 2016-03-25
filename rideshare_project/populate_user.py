@@ -29,7 +29,44 @@ def populate():
 	add_users(user=user_name_2,
 	phone = 6789054321,
 	age = 25,
-	identity_number= 's2154657')
+	 identity_number= 's2154657')
+
+
+	user_name_3 = add_user_main(username='leifos',
+	password='leifos',
+	email='harry@abc.com',
+	first_name='Leif',
+	last_name='XYZ')
+
+	add_users(user=user_name_3,
+	phone = '123456560',
+	age ='34',
+	identity_number='2196733')
+
+
+	user_name_4 = add_user_main(username='laura',
+	password='laura',
+	email='laura@abc.com',
+	first_name='Laura',
+	last_name='XYZ')
+
+	add_users(user=user_name_4,
+	phone = '123456560',
+	age ='34',
+	identity_number='2196734')
+
+	user_name_5 = add_user_main(username='david',
+	password='david',
+	email='david@abc.com',
+	first_name='David',
+	last_name='XYZ')
+
+	add_users(user=user_name_5,
+	phone = '123456560',
+	age ='34',
+	identity_number='2196735')
+
+
 '''
 	for b in User.objects.all():
 		for a in Users_Reg.objects.filter(username=b):
