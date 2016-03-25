@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
-
     <head>
 		{% load staticfiles %}
 		<title>RideShare</title>
-	<link rel="stylesheet" href="{% static 'rideshare/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'CSS/style.css' %}" />
+  <script type="text/javascript" src="{% static 'JS/jquery.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'JS/bootstrap.min.js' %}"></script>
     </head>
 
     <body>	
@@ -29,7 +30,16 @@
 			  
 			  {% if user.is_authenticated %}
 			  <ul class="nav navbar-nav navbar-right">
-                <li><a href="/profile/">{{user.username}}</a></li>
+				<li class="dropdown">
+				  <a href="/profile/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user.username}} <span class="caret"></span></a>
+				  <ul class="dropdown-menu" role="menu">
+				  <li><a href="/profile/">Profile</a></li>
+					<li><a href="/add_vehicle/">Add Vehicle</a></li>
+					<li class="divider"></li>
+					<li><a href="/ridesBooked/">View Booked Journeys</a></li>
+					<li><a href="/ridesPosted/">View Rides Posted</a></li>
+				  </ul>
+				</li>
 				<li><a href="/logout/">Logout</a></li>
 			  </ul>
 			  {% else %}

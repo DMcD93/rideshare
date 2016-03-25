@@ -26,4 +26,5 @@ urlpatterns = patterns('',
 	url(r'^login/$', views.user_login, name='login'),
 	url(r'^profile/$', views.get_user_profile, name='profile'),
 	url(r'^ridesPosted/$', views.ridesposted, name='userPosted'),
+	url(r'^ridesBooked/$', views.ridesBooked, name='userBooked'),
 )

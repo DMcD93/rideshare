@@ -17,7 +17,7 @@
 
 	{% if journeys %}
 	<div id="journey">
-			<table class="table table-striped table-hover ">
+			<table class="table table-striped">
 				<tr>
 					<input class="search form-control" placeholder="Search" size="50" />
 					<td><input type="checkbox" id="todaysRides">Todays Rides</input></td>
@@ -31,14 +31,38 @@
 			<table class="table table-striped table-hover ">
 				<thead>
 				    <tr>
-						<th class="active">Departure <button class="btn sort glyphicon-sort pull-right" data-sort="departure"></button></th>
-						<th class="active">Destination <button class="btn sort glyphicon-sort pull-right" data-sort="destination"> </button></th>
-						<th class="active">Date <button class="btn sort glyphicon-sort pull-right" data-sort="date"> </button></th>
-						<th class="active">Time <button class="btn sort glyphicon-sort pull-right" data-sort="time"></button></th>
-						<th class="active">Cost <button class="btn sort glyphicon-sort pull-right" data-sort="cost"></button> </th>
-						<th class="active">Seats <button class="btn sort glyphicon-sort pull-right" data-sort="seatsAvailable"></button> </th>
-						<th class="active"></th>
-						<th class="active"></th>
+						<th>Departure						
+							<button class="btn sort dropdown-toggle" data-sort="departure">
+								<span class="caret"></span>
+							</button>
+						</th>
+						<th>Destination
+							<button class="btn sort dropdown-toggle" data-sort="destination">
+								<span class="caret"></span>
+							</button>
+						</th>
+						<th>Date						
+							<button class="btn sort dropdown-toggle" data-sort="date">
+								<span class="caret"></span>
+							</button>
+						</th>
+						<th>Time						
+							<button class="btn sort dropdown-toggle" data-sort="time">
+								<span class="caret"></span>
+							</button>
+						</th>
+						<th>Cost						
+							<button class="btn sort dropdown-toggle" data-sort="cost">
+								<span class="caret"></span>
+							</button>
+						</th>
+						<th>Seats						
+							<button class="btn sort dropdown-toggle" data-sort="seatsAvailable">
+								<span class="caret"></span>
+							</button>
+						</th>
+						<th></th>
+						<th></th>
 				    </tr>
 				</thead>
 				<tbody class="list">
@@ -51,7 +75,12 @@
 								<td class="time text-center">{{ journey.travelling_time }}</td>
 								<td class="cost text-right">{{ journey.cost }}</td>
 								<td class="seatsAvailable text-center">{{ journey.seatsAvailable }}</td>
-								<td>
+							<td>
+								<form name="book_form" method="get" action="{% url 'search:get_ride_detail' journey.journey %}">
+									<input class="viewride btn-link" type="submit" name="submit" value="View Ride Details" />
+								</form>
+							</td>
+							<td>
 								{% if passangers %}
 										{% for passanger in passangers %}
 											{% ifequal journey.journey passanger.journey.journey %}
@@ -75,11 +104,6 @@
 									{% endif %}
 								</td> 
 							</td>
-							<td>
-								<form name="book_form" method="get" action="{% url 'search:get_ride_detail' journey.journey %}">
-									<input class="viewride btn-link" type="submit" name="submit" value="View Ride Details" />
-								</form>
-							</td>
 						{% endif %}	
 					{% endfor %}
 				</tbody>
@@ -90,8 +114,8 @@
 		<a href="/">Return to the homepage.</a><br />
 	{% endif %}
 	</div>
-<script type="text/javascript" src="{% static 'rideshare/list.js' %}"></script>
-<script type="text/javascript" src="{% static 'rideshare/journeyFunctions.js' %}"></script>
+<script type="text/javascript" src="{% static 'JS/list.js' %}"></script>
+<script type="text/javascript" src="{% static 'JS/journeyFunctions.js' %}"></script>
 {% endblock %}
 </body>
 </html>
