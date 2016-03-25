@@ -10,6 +10,7 @@
 <body>
 {% block body_block %}
 <div class="jumbotron">
+<div class="container">
 	<form class="form-horizontal" id="user_form" enctype="multipart/form-data">
 
 		<fieldset>
@@ -17,26 +18,26 @@
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Driver Name</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.first_name}} {{ user.last_name }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ user.first_name}} {{ user.last_name }}"></input>
 						</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Age</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ driver.age }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ driver.age }}"></input>
 						</div>
 				</div>		
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Driver's Email</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.email }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ user.email }}"></input>
 						</div>
 				</div>		
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Contact Number</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ driver.phone }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ driver.phone }}"></input>
 						</div>
 				</div>		
 		</fieldset>
@@ -46,37 +47,37 @@
 				<div class="form-group">
 					<label class="col-lg-2 control-label">From</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ journey.departure }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ journey.departure }}"></input>
 						</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">To</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ journey.destination }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ journey.destination }}"></input>
 						</div>
 				</div>				
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Date</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ journey.travelling_date }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ journey.travelling_date }}"></input>
 						</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Time</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ journey.travelling_time }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ journey.travelling_time }}"></input>
 						</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Seats Availability</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ journey.seatsAvailable }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ journey.seatsAvailable }}"></input>
 						</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Cost</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ journey.cost }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ journey.cost }}"></input>
 						</div>
 				</div>
 				
@@ -87,33 +88,42 @@
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Make</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ vehicle.make }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ vehicle.make }}"></input>
 						</div>
 				</div>	
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Model</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ vehicle.model }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ vehicle.model }}"></input>
 						</div>
 				</div>				
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Registration Number</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ vehicle.reg_no }}</label>
+							<input type="text" class="form-control" readonly="readonly" value="{{ vehicle.reg_no }}"></input>
 						</div>
 				</div>
 		</fieldset>
 	</form>			
-				{% if posted %}
+			
+			<h3>Reviews</h3>
+			<form class="form-horizontal" id="vehicle_form" enctype="multipart/form-data">
+			<div class="form-group">
+			<label class="col-lg-2 control-label">Reviews</label>
+			<div class="col-lg-3">
+			{% if posted %}
 					Rideshare says: <strong>thank you for reviewing!</strong>
 				{% else %}
 				
 						{% for review in review_list %}
 								</br><a>{{ review.posted_by  }} posted on: {{ review.posted_at }}<a></br></br>
-								<Textarea class="text" cols="35" rows="3">{{ review.description }}</Textarea>
+								<Textarea class="form-control" readonly="readonly" cols="35" rows="3">{{ review.description }}</Textarea>
 							{% empty %}
-								<Textarea class="text" cols="35" rows="3" placeholder="No reviews posted yet"></Textarea>					
+								<Textarea cols="35" rows="3" class="form-control" readonly="readonly" placeholder="No reviews posted yet"></Textarea>					
 						{% endfor %}
+			</div>
+			</div>
+			</form>
 					</br>
 					</br>
 					<form id="review_form" method="post" action="{% url 'search:get_ride_detail' journey.journey %}" enctype="multipart/form-data">		
@@ -123,7 +133,6 @@
 					</form>
 				{% endif %}
 </div>
-
 
 {% endblock %}
 </body>

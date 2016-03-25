@@ -12,93 +12,101 @@
 <body>
 {% block body_block %}
 <div class="jumbotron">
-<h2>Profile Information</h2>
-	<form class="form-horizontal" id="user_form" enctype="multipart/form-data">
+<div class="container">
+<h2>Profile Information for {{ user.username }}</h2>
+	<!---form class="form-horizontal" id="user_form" enctype="multipart/form-data"--->
 		<fieldset>
-				<div class=" nav navbar-nav navbar-right">
+				<div class="nav navbar-nav navbar-right">
 					<!---a href="/ridesposted/" class="btn btn-lg btn-primary">View Rides Posted</a></br></br--->
-					<a href="/ridesPosted/">View Rides Posted</a>
-					<a href="/add_vehicle/">Add Vehicle</a>
+					<p><a href="/ridesPosted/" class="btn btn-primary">View Rides Posted</a></p>
+					<p><a href="/add_vehicle/" class="btn btn-primary">Add Vehicle</a></p>
+					
 				</div>
 			
-				<div class="form-group">
+				<!---div class="form-group">
 					<label class="col-lg-2 control-label">Username</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.username }}</label>
+							<input type="text" class="form-control" value="{{ user.username }}"></input>
 						</div>
-				</div>
+				</div--->
 				
 				<h3>Personal</h3>
-
+			<form class="form-horizontal" id="profile_form" method="Post" enctype="multipart/form-data">
+			 {% csrf_token %} 
 				<div class="form-group">
 					<label class="col-lg-2 control-label">First Name</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.first_name }}</label>
+							<input id="fname" type="text" class="form-control" readonly="readonly" value="{{ user.first_name }}"></input>
 						</div>
 				</div>		
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Last Name</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.last_name }}</label>
+							<input id="lname" class="form-control" readonly="readonly" value="{{ user.last_name }}"></input>
 						</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Email</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ user.email }}</label>
+							<input id="email" class="form-control" readonly="readonly" value="{{ user.email }}"></input>
 						</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Phone Number</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ profile_info.phone }}</label>
+							<input id="phone" class="form-control" readonly="readonly" value="{{ profile_info.phone }}"></input>
 						</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">ID</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ profile_info.identity_number }}</label>
+							<input id="id" class="form-control" readonly="readonly" value="{{ profile_info.identity_number }}"></input>
 						</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Age</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ profile_info.age }}</label>
+							<input id="age" class="form-control" readonly="readonly" value="{{ profile_info.age }}"></input>
 						</div>
 				</div>
-				
+			</form>
 			{% if exists %}
 				
 				<h3>Vehicle</h3>
 				
-				
+			<form class="form-horizontal" id="vehicle_form" method="Post" enctype="multipart/form-data">	
+			 {% csrf_token %} 
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Registration Number</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ vehicle.reg_no }}</label>
+							<input id="reg" class="form-control" readonly="readonly" value="{{ vehicle.reg_no }}"></input>
 						</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Make</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ vehicle.make }}</label>
+							<input id="make" class="form-control" readonly="readonly" value="{{ vehicle.make }}"></input>
 						</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Model</label>
 						<div class="col-lg-3">
-							<label class="col-lg-2 control-label">{{ vehicle.model }}</label>
+							<input id="model" class="form-control" readonly="readonly" value="{{ vehicle.model }}"></input>
 						</div>
 				</div>
 								
-				
-		
+				<!---div class="form-group">
+					<div class="col-lg-10 col-lg-offset-2">
+						<input type="submit" value="submit" class="btn btn-primary"/>
+					</div>
+				</div--->
+			</form>
 			</fieldset>
-
-			<h3>Reviews</h3>
 			
+			<h3>Reviews</h3>
+			<form class="form-horizontal" id="vehicle_form" enctype="multipart/form-data">
 			<div class="form-group">
 					<!---form id="review_form" method="post" action="/rideshare/profile/" enctype="multipart/form-data"--->				
 						<label class="col-lg-2 control-label">Reviews</label>
@@ -107,21 +115,24 @@
 							{% for review in review_list %}
 							
 							</br><a>{{ review.posted_by }} posted on: {{ review.posted_at }}<a></br></br>
-							<Textarea disabled class="text" cols="35" rows="3">{{ review.description }}</Textarea>
+							<Textarea class="form-control" readonly="readonly" class="text" cols="35" rows="3">{{ review.description }}</Textarea>
 							
 							{% empty %}
-								<Textarea disabled class="text" cols="35" rows="3">No reviews posted yet</Textarea>
+								<Textarea class="form-control" readonly="readonly" class="text" cols="35" rows="3">No reviews posted yet</Textarea>
 							{% endfor %}
 						</div>
 						
 			</div>
 			
 			{% endif %}
-		
+			</form>
 	</form>	
+</div>
 </div>
 
 {% endblock %}
+
+
 </body>
 
 </html>
