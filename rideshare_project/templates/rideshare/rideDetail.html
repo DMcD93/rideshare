@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% extends 'rideshare/base.html' %}
-
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,14 +11,17 @@
 	<form class="form-horizontal" id="user_form" enctype="multipart/form-data">
 		<div align="center">
 						<h3>
-							<label>{{ journey.departure }}</label>
+							<label id="departure">{{ journey.departure }}</label>
 							<label> → </label>
-							<label>{{ journey.destination }}</label>
+							<label id="destination">{{ journey.destination }}</label>
 						</h3>
 						<h3>
 							<label>{{ journey.travelling_date }} - </label>
 							<label>{{ journey.travelling_time }}</label>
 						</h3>
+						<h4>
+							<label id="matrix"></label>
+						</h4>
 				<div class="form-group">
 					<h4>
 						<label class="col-lg-3 control-label">Seats Available</label>
@@ -33,7 +36,7 @@
 			<legend>Driver Details</legend>
 				<div class="form-group">
 					<label class="col-lg-5 control-label">Driver Name</label>
-							<label class="col-lg-5 control-label">{{ user.first_name}} {{ user.last_name }}</label>
+							<label class="col-lg-5 control-label">{{ user_info.first_name}} {{ user_info.last_name }}</label>
 				</div>
 				
 				<div class="form-group">
@@ -42,7 +45,7 @@
 				</div>		
 				<div class="form-group">
 					<label class="col-lg-5 control-label">Driver's Email</label>
-							<label class="col-lg-5 control-label">{{ user.email }}</label>
+							<label class="col-lg-5 control-label">{{ user_info.email }}</label>
 				</div>		
 				<div class="form-group">
 					<label class="col-lg-5 control-label">Contact Number</label>
@@ -74,17 +77,21 @@
 								<Textarea class="text" cols="35" rows="3" placeholder="No reviews posted yet" disabled></Textarea>	
 						{% endfor %}
 					</br>
-					<legend>Leave a Review</legend>
-					<form id="review_form" method="post" action="{% url 'search:get_ride_detail' journey.journey %}" enctype="multipart/form-data">		
-							{% csrf_token %}
-							{{ review_form.as_p }}
-							<input type="submit" class="btn btn-primary" name="submit" value="Add Review" />
-					</form>
+					
+					{% if not user.username = user_info.username%}
+						<legend>Leave a Review</legend>
+						<form id="review_form" method="post" action="{% url 'search:get_ride_detail' journey.journey %}" enctype="multipart/form-data">		
+								{% csrf_token %}
+								{{ review_form.as_p }}
+								<input type="submit" class="btn btn-primary" name="submit" value="Add Review" />
+						</form>
+					{% endif %}
 				</div>
 				{% endif %}
 	
 	</form>
-				
+<script type="text/javascript" src="{% static 'JS/autocompleteAPI.js' %}"></script>		
+<script type="text/javascript" src="{% static 'JS/distanceMatrix.js' %}"></script>				
 {% endblock %}
 </body>
 </html>				

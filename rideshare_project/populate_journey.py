@@ -4,7 +4,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "rideshare_project.settings")
 import django
 django.setup()
 
-from rideshare.models import Journey, Vehicle
+from rideshare.models import Journey, Vehicle, Passanger
 
 def populate():
     add_journey(departure = 'Great Western Road',
@@ -16,7 +16,7 @@ def populate():
 		user="Harry")
 
     add_journey(departure = 'Partick Station',
-        destination ='Briars Road',
+        destination ='Byres Road',
 		travelling_date ="2016-06-20",
 		travelling_time ="08:30",
         seatsAvailable=1,
@@ -39,6 +39,7 @@ def add_journey(departure, destination, travelling_date, travelling_time, seatsA
 	v = Vehicle.objects.get(user__username=user)
 	j = Journey.objects.get_or_create(departure=departure, destination=destination, travelling_date=travelling_date, 
 	travelling_time=travelling_time, seatsAvailable=seatsAvailable, cost=cost, user=v)[0]
+	p = Passanger.objects.create(journey=j)
 	return j
 
 # Start execution here!

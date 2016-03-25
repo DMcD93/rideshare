@@ -320,7 +320,7 @@ def get_ride_detail(request, journey):
 	else:
 		return render(request, 'rideshare/login.html')
 		
-	context_dict = {'review_form': review_form, 'journey': journey_info, 'user': user_info, 'driver': driver_info, 'vehicle': vehicle_info, 'review_list': review_list}
+	context_dict = {'review_form': review_form, 'journey': journey_info, 'user_info': user_info, 'driver': driver_info, 'vehicle': vehicle_info, 'review_list': review_list}
     
 	return render(request, 'rideshare/rideDetail.html', context_dict)
 	'''{'driver_detail':driver_detail, 'journey_detail':journey_detail, 
