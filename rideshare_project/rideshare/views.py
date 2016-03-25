@@ -10,6 +10,7 @@ from rideshare.models import Journey, Vehicle, Passanger, User, Review, Users_Re
 from django.core.urlresolvers import reverse
 from django.views import generic
 import datetime
+from django.db.models import Q
 
 def main(request):
 	if request.user.is_authenticated():
@@ -186,7 +187,7 @@ def post_ride(request):
 	
 def search_ride(request):
 	if request.user.is_authenticated():
-		journey_list = Journey.objects.order_by('travelling_date', 'travelling_time', 'cost')
+		journey_list = Journey.objects.filter(Q(travelling_date=datetime.datetime.now().strftime('%Y-%m-%d'),travelling_time__gte=datetime.datetime.now().strftime('%H:%M'))|Q(travelling_date__gt=datetime.datetime.now().strftime('%Y-%m-%d'))).order_by('travelling_date', 'travelling_time', 'cost')
 		passanger_list = Passanger.objects.all()
 		context_dict = {'journeys': journey_list, 'passangers': passanger_list}
 
@@ -260,10 +261,8 @@ def get_user_profile(request):
 	
 	try:
 		vehicle_list = Vehicle.objects.get(user__username = request.user)
-		print request.user
-		print vehicle_list
 		if not vehicle_list is None:
-			review_list = Review.objects.filter(user__username = request.user)
+			review_list = Review.objects.filter(user__username = request.user).order_by('-posted_at')[:3]
 			exists = True
 			return render(request, 'rideshare/profile.html', {'profile': request.user, 'profile_info': profile_info, 'vehicle': vehicle_list,
 					'review_list':review_list, 'exists': exists})
@@ -279,6 +278,15 @@ def ridesposted(request):
 
 	return render(request, 'rideshare/ridesPosted.html', context_dict)	
 	
+@login_required				
+def ridesBooked(request):
+	booked_list = Passanger.objects.filter(Q(front = request.user)|Q(backLeft = request.user)|Q(backRight = request.user))	
+	ride_list = Journey.objects.all()	
+	
+	context_dict = {'booked': booked_list, 'rides': ride_list}
+
+	return render(request, 'rideshare/ridesBooked.html', context_dict)	
+	
 @login_required
 def get_ride_detail(request, journey):
 	posted = False
@@ -292,12 +300,11 @@ def get_ride_detail(request, journey):
 	user_info = User.objects.get(username=journey_info.user)
 	driver_info = Users_Reg.objects.get(user__username=journey_info.user)
 	vehicle_info = Vehicle.objects.get(user__username=journey_info.user)
-	review_list = Review.objects.filter(user__username = request.user)
+	review_list = Review.objects.filter(user__username = journey_info.user).order_by('-posted_at')[:3]
 	
 	if request.user.is_authenticated():
 		if request.method == 'POST':	
 			review_form = ReviewForm(data=request.POST)
-			print "test1"
 			if review_form.is_valid():
 				review = review_form.save(commit = False)
 				review.user = driver_info.user
@@ -309,11 +316,11 @@ def get_ride_detail(request, journey):
 			else:
 				review_form.errors
 		else:
-			review_form = ReviewForm()
+			review_form = ReviewForm(auto_id=False)
 	else:
 		return render(request, 'rideshare/login.html')
 		
-	context_dict = {'review_form': review_form, 'journey': journey_info, 'user': user_info, 'driver': driver_info, 'vehicle': vehicle_info, 'review_list': review_list}
+	context_dict = {'review_form': review_form, 'journey': journey_info, 'user_info': user_info, 'driver': driver_info, 'vehicle': vehicle_info, 'review_list': review_list}
     
 	return render(request, 'rideshare/rideDetail.html', context_dict)
 	'''{'driver_detail':driver_detail, 'journey_detail':journey_detail, 

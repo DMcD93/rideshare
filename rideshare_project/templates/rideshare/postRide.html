@@ -17,8 +17,8 @@
               <p><a href="/" class="btn btn-primary">Return to the homepage</a></p>
             </div>
 	{% else %}
-<div class="jumbotron">
-    <h3>Add a new journey</h3>
+
+    <h1>Add a new journey</h1>
 	<form id="journey_form" class="form-horizontal" method="post" action="/post_ride/"
 					enctype="multipart/form-data">
 		  
@@ -54,10 +54,9 @@
 
 
 		</fieldset>
-	</form>
 	</div>
-	<script type="text/javascript" src="{% static 'rideshare/autocompleteAPI.js' %}"></script>
-	<script type="text/javascript" src="{% static 'rideshare/autocomplete.js' %}"></script>	
+	<script type="text/javascript" src="{% static 'JS/autocompleteAPI.js' %}"></script>
+	<script type="text/javascript" src="{% static 'JS/autocomplete.js' %}"></script>	
 	{% endif %}
 	{% endblock %}
 </body>

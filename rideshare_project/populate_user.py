@@ -34,9 +34,9 @@ def populate():
 
 	user_name_3 = add_user_main(username='leifos',
 	password='leifos',
-	email='harry@abc.com',
+	email='leifos@awesome.com',
 	first_name='Leif',
-	last_name='XYZ')
+	last_name='Azzopardi')
 
 	add_users(user=user_name_3,
 	phone = '123456560',
@@ -59,11 +59,11 @@ def populate():
 	password='david',
 	email='david@abc.com',
 	first_name='David',
-	last_name='XYZ')
+	last_name='Smith')
 
 	add_users(user=user_name_5,
 	phone = '123456560',
-	age ='34',
+	age ='29',
 	identity_number='2196735')
 
 

@@ -16,13 +16,29 @@ def populate():
 	last_name='Potter')
 	
 	add_review(user=user_one,
-	description='This should work!!',
-	posted_by='monica',
+	description='Good driver!!!',
+	posted_by='Sally',
 	posted_at=timezone.now())
 	
 	add_review(user=user_one,
-	description='This better work.',
-	posted_by='Sally',
+	description='Leifos is better!',
+	posted_by='laura',
+	posted_at=timezone.now())
+	
+	user_two = add_user(username='leifos',
+	password='leifos',
+	email='leifos@awesome.com',
+	first_name='Leif',
+	last_name='Azzopardi')
+	
+	add_review(user=user_two,
+	description='Awesome guy with a sweet ride.',
+	posted_by='david',
+	posted_at=timezone.now())
+	
+	add_review(user=user_two,
+	description='No.1',
+	posted_by='Laura',
 	posted_at=timezone.now())
 	
 def add_user(username, password, email, first_name, last_name):
